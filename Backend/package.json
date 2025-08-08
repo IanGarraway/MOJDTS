@@ -1,0 +1,28 @@
+{
+  "name": "mojdts-backend",
+  "version": "1.0.0",
+  "description": "back end for the Developer Technical Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IanGarraway/MOJDTS.git"
+  },
+  "author": "IanGarraway",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IanGarraway/MOJDTS/issues"
+  },
+  "homepage": "https://github.com/IanGarraway/MOJDTS#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "c8": "^10.1.3",
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
+    "supertest": "^7.1.4"
+  }
+}
