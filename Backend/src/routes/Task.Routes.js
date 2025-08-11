@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { body } from "express-validator";
 import TaskController from "../controllers/Task.Controller.js";
 
 export default class TaskRoutes{
@@ -25,7 +26,9 @@ export default class TaskRoutes{
             next();
         });
 
-        this.#router.post('/newtask', this.#controller.newTask);
+        this.#router.post('/newtask', [
+            body(`taskTitle`).exists().notEmpty().escape()            
+        ], this.#controller.newTask);
 
         this.#router.get('/getall', this.#controller.getAll);
         

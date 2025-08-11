@@ -1,5 +1,7 @@
 import TaskService from "../services/Task.Service.js";
 import Task from "../models/Task.model.js";
+import { validationResult } from "express-validator";
+
 
 export default class TaskController{
     #taskService;
@@ -10,6 +12,10 @@ export default class TaskController{
 
     newTask = async (req, res) => {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: 'Task validation failed', errors: errors.array() });
+            }
             const newTask = new Task({
                 taskTitle: req.body.taskTitle,
                 taskDescription: req.body.taskDescription,
