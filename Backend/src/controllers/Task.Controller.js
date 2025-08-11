@@ -6,4 +6,8 @@ export default class TaskController{
     constructor(taskService = new TaskService()) {
         this.#taskService = taskService;
     }
+
+    newTask = async (req, res) => {
+        return res.status(201).send({ message: "Task was registered sucessfully" });
+    }
 }
