@@ -88,6 +88,21 @@ describe("Tests of Task Routes", () => {
                 //Assert
                 expect(response.status).to.equal(400);
             })
+
+            it("should respond with 400 error if status is missing", async () => {
+                //arrange
+                let testTask = {
+                    "taskTitle": "Test Task",
+                    "taskDescription": "Test Task",                    
+                    "taskDueDate": "2025-12-08T00:00:00.000Z"
+                }
+
+                //Act
+                const response = await request.post("/newtask").send(testTask);
+
+                //Assert
+                expect(response.status).to.equal(400);
+            })
         })
     });
 
