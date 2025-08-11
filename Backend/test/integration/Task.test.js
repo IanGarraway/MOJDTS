@@ -187,7 +187,7 @@ describe("Tests of Task Routes", () => {
                     "taskDueDate": '2025-12-08T00:00:00.000Z'
                 }
                 const createdTask = await Task.create(testTask);
-                const taskId = createdTask._id.toString();
+                const taskId = createdTask._id.toString();                
 
                 //Act
                 const response = await request.get(`/${taskId}`);
@@ -196,7 +196,25 @@ describe("Tests of Task Routes", () => {
                 expect(response.status).to.equal(200);
                 expect(response.body).to.be.an("object");
                 expect(response.body.taskTitle).to.equal(testTask.taskTitle);
-            })
+            });
+
+            it("Should return 404 when an id for a non existant task is sent", async () => {
+                //arrange
+                let testTask = {
+                    "taskTitle": 'Test Task',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                 await Task.create(testTask);
+                const taskId = "689a2ec243c64536c8086bb5";
+
+                //Act
+                const response = await request.get(`/${taskId}`);                
+
+                //Assert
+                expect(response.status).to.equal(404);                
+            });
         })
     })
 })

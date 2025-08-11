@@ -1,3 +1,4 @@
+
 import TaskService from "../services/Task.Service.js";
 import Task from "../models/Task.model.js";
 import { validationResult } from "express-validator";
@@ -39,8 +40,8 @@ export default class TaskController{
     }
 
     get = async (req, res) => {        
-        const taskData = await this.#taskService.get(req.params._id);        
-        
+        const taskData = await this.#taskService.get(req.params._id); 
+        if (taskData == null) { return res.status(404).send({ message: "No task found" }); }        
         return res.status(200).send(taskData);
     }
 }
