@@ -4,8 +4,14 @@
   "description": "back end for the Developer Technical Test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prod": "NODE_ENV=prod nodemon src/index.js",
+    "start": "NODE_ENV=dev nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test mocha --timeout 10000 --exit --recursive",
+    "test-win": "cross-env NODE_ENV=test mocha 'test/**/*.test.js' --timeout 10000 --exit --recursive ",
+    "coverage": "cross-env NODE_ENV=test c8 -r html npm test",
+    "coverage-win": "cross-env NODE_ENV=test c8 -r html npm run test-win"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IanGarraway/MOJDTS.git"
@@ -17,7 +23,12 @@
   },
   "homepage": "https://github.com/IanGarraway/MOJDTS#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.17.1"
   },
   "devDependencies": {
     "c8": "^10.1.3",
