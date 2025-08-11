@@ -28,7 +28,8 @@ export default class TaskRoutes{
 
         this.#router.post('/newtask', [
             body(`taskTitle`).exists().notEmpty().escape(),
-            body(`taskStatus`).exists().notEmpty().escape()
+            body(`taskStatus`).exists().notEmpty().escape(),
+            body(`taskDueDate`).exists().notEmpty().escape()
         ], this.#controller.newTask);
 
         this.#router.get('/getall', this.#controller.getAll);
