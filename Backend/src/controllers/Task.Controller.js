@@ -37,4 +37,10 @@ export default class TaskController{
         
         return res.status(200).send(taskData);        
     }
+
+    get = async (req, res) => {        
+        const taskData = await this.#taskService.get(req.params._id);        
+        
+        return res.status(200).send(taskData);
+    }
 }

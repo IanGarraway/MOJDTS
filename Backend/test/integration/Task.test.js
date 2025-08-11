@@ -121,7 +121,7 @@ describe("Tests of Task Routes", () => {
     });
 
     describe("Get task Routes", () =>{
-        describe("Get request to /getall", () => {
+        describe("Get requests to /getall", () => {
             it("should respond with a single task", async () => {
                 //Arrange
                 let testTask = {
@@ -174,6 +174,28 @@ describe("Tests of Task Routes", () => {
                 expect(response.status).to.equal(200);
                 expect(response.body).to.be.an("array").of.length(2);
 
+            })
+        })
+
+        describe("Get requests to /get", () => {
+            it("Should return the task when the id is sent", async () => {
+                //arrange
+                let testTask = {
+                    "taskTitle": 'Test Task',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                const createdTask = await Task.create(testTask);
+                const taskId = createdTask._id.toString();
+
+                //Act
+                const response = await request.get(`/${taskId}`);
+
+                //Assert
+                expect(response.status).to.equal(200);
+                expect(response.body).to.be.an("object");
+                expect(response.body.taskTitle).to.equal(testTask.taskTitle);
             })
         })
     })

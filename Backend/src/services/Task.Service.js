@@ -10,4 +10,12 @@ export default class TaskService{
         }
     }
 
+    get = async (taskId) => {
+        try {
+            return await Task.findById(taskId)            
+        } catch (e) {
+            throw e;
+        }
+    }
+
 }

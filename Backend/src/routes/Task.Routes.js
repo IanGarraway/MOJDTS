@@ -33,6 +33,7 @@ export default class TaskRoutes{
         ], this.#controller.newTask);
 
         this.#router.get('/getall', this.#controller.getAll);
+        this.#router.get('/:_id', this.#controller.get)
         
     };
     getRouter = () => { return this.#router; };
