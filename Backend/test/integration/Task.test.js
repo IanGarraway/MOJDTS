@@ -104,6 +104,33 @@ describe("Tests of Task Routes", () => {
                 );                
                 expect(found).to.be.true;
             })
+
+            it("Should respond with an array of 2 tasks", async () => {
+                //Arrange
+                let testTask1 = {
+                    "taskTitle": 'Test Task 1',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                let testTask2 = {
+                    "taskTitle": 'Test Task 2',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+
+                await request.post("/newtask").send(testTask1);
+                await request.post("/newtask").send(testTask2);
+
+                //act
+                const response = await request.get("/getall");
+
+                //assert
+                expect(response.status).to.equal(200);
+                expect(response.body).to.be.an("array").of.length(2);
+
+            })
         })
     })
 })
