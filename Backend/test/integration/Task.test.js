@@ -5,14 +5,18 @@ import supertest from "supertest";
 //code imports
 
 import Config from "../../src/config/Config.js";
+import Database from "../../src/db/Database.js";
 import Server from "../../src/server/Server.js";
 
 import TaskController from "../../src/controllers/Task.Controller.js";
 import TaskRoutes from "../../src/routes/Task.Routes.js";
 import TaskService from "../../src/services/Task.Service.js";
 
+import Task from "../../src/models/Task.model.js";
+
 
 describe("Tests of Task Routes", () => {
+    let database;
     let testServer;
     let taskService;
 
@@ -28,6 +32,9 @@ describe("Tests of Task Routes", () => {
 
         const taskRoutes = new TaskRoutes(ORIGIN);
 
+        database = new Database(DB_URI);
+        await database.connect();
+
         testServer = new Server(PORT, HOST, taskRoutes, ORIGIN);
         testServer.start();
 
@@ -36,18 +43,28 @@ describe("Tests of Task Routes", () => {
 
     after(async () => {
         await testServer.close();
+        await database.close();
     })
 
-    describe("Create Task Route", () => {
-        
+    afterEach(async () => {
+        try {
+            await Task.deleteMany();            
+        } catch (e) {
+            console.log(e.message);
+            console.log("Error clearing out Tasks");
+            throw new Error(e.message);
+        }
+    })
+
+    describe("Create Task Route", () => {        
         describe("Post request to /newtask", () => {
             it("should repond with Task was registered successfully", async () => {
                 //arrange
                 let testTask = {
-                    "Title": "Test Task",
-                    "Description": "Test Task",
-                    "Status": "Open",
-                    "Due date/time": "12/08/2025"
+                    "taskTitle": "Test Task",
+                    "taskDescription": "Test Task",
+                    "taskStatus": 1,
+                    "taskDueDate": "2025-12-08T00:00:00.000Z"
                 }
 
                 //Act
@@ -55,6 +72,37 @@ describe("Tests of Task Routes", () => {
 
                 //Assert
                 expect(response.status).to.equal(201);
+            })
+        })
+    });
+
+    describe("Get task Routes", () =>{
+        describe("Get request to /getall", () => {
+            it("should respond with a single task", async () => {
+                //Arrange
+                let testTask = {
+                    "taskTitle": 'Test Task',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+
+                await request.post("/newtask").send(testTask);
+
+                //act
+                const response = await request.get("/getall");
+
+                //assert
+                expect(response.status).to.equal(200);
+                expect(response.body).to.be.an("array");
+
+                const found = response.body.some(task =>
+                    task.taskTitle === testTask.taskTitle &&
+                    task.taskDescription === testTask.taskDescription &&
+                    task.taskStatus === testTask.taskStatus &&
+                    new Date(task.taskDueDate).toISOString() === testTask.taskDueDate
+                );                
+                expect(found).to.be.true;
             })
         })
     })

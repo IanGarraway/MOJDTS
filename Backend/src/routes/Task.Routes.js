@@ -26,6 +26,8 @@ export default class TaskRoutes{
         });
 
         this.#router.post('/newtask', this.#controller.newTask);
+
+        this.#router.get('/getall', this.#controller.getAll);
         
     };
     getRouter = () => { return this.#router; };
