@@ -18,4 +18,12 @@ export default class TaskService{
         }
     }
 
+    patch = async (req) => {
+        return await Task.findByIdAndUpdate(
+            req.params._id,
+            { $set: req.body }, //Only update the fields send in the body
+            { new: true, runValidators: true } //new: true will return the updated task
+        );
+    }
+
 }

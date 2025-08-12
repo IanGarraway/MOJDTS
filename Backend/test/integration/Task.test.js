@@ -57,7 +57,7 @@ describe("Tests of Task Routes", () => {
     })
 
     describe("Create Task Route", () => {        
-        describe("Post request to /newtask", () => {
+        describe("Post request to /tasks", () => {
             it("should repond with Task was registered successfully", async () => {
                 //arrange
                 let testTask = {
@@ -121,7 +121,7 @@ describe("Tests of Task Routes", () => {
     });
 
     describe("Get task Routes", () =>{
-        describe("Get requests to /getall", () => {
+        describe("Get requests to /tasks", () => {
             it("should respond with a single task", async () => {
                 //Arrange
                 let testTask = {
@@ -177,7 +177,7 @@ describe("Tests of Task Routes", () => {
             })
         })
 
-        describe("Get requests to /get", () => {
+        describe("Get requests to /tasks/{id}", () => {
             it("Should return the task when the id is sent", async () => {
                 //arrange
                 let testTask = {
@@ -267,6 +267,28 @@ describe("Tests of Task Routes", () => {
                 expect(response.body).to.be.an("object");
                 expect(response.body.taskTitle).to.equal(testTask2.taskTitle);
             });
+        })
+
+        describe("Patch requests to /tasks/", () => {
+            it("Should return 200 when a task is successfully updated", async () => {
+                //Arrange
+                let testTask = {
+                    "taskTitle": 'Test Task',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                const createdTask = await Task.create(testTask);
+                const newData = { "taskStatus": 2 };
+
+                //Act
+                const response = await request.patch(`/tasks/${createdTask._id}`).send(newData);
+                
+                //Assert
+                expect(response.status).to.equal(200);
+                const updatedTask = await Task.findById(createdTask._id);
+                expect(updatedTask.taskStatus).to.equal(2);
+            })
         })
     })
 })
