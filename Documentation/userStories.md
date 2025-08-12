@@ -68,11 +68,11 @@
 
 #### backend
 
-- [ ] PATCH /{id} endpoint created
-- [ ] validation on title (required)
-- [ ] validation on status (required, number)
-- [ ] validation on due date/time (required)
-- [ ] Returns 200 on successful task update
+- [x] PATCH /{id} endpoint created
+- [x] validation on title (required)
+- [x] validation on status (required, number)
+- [x] validation on due date/time (required)
+- [x] Returns 200 on successful task update
 - [ ] Returns 404 if id valid but task doesn't exist
 - [ ] returns 400 if invalid id is sent
 

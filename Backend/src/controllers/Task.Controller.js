@@ -43,7 +43,8 @@ export default class TaskController{
 
     patch = async (req, res) => {
         const updatedTask = await this.#taskService.patch(req);
-
+        
+        if (updatedTask == null) { return res.status(404).send({ message: "No task found" }); }        
         return res.status(200).send(updatedTask);
     }
 }

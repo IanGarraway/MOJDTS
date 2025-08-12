@@ -288,7 +288,19 @@ describe("Tests of Task Routes", () => {
                 expect(response.status).to.equal(200);
                 const updatedTask = await Task.findById(createdTask._id);
                 expect(updatedTask.taskStatus).to.equal(2);
-            })
+            });
+
+            it("Should return 404 if id valid but task doesnt exist", async () => {
+                //Arrange
+                const validTaskId = "689a2ec243c64536c8086bb5";
+                const spoofData = { "taskStatus": 2 };
+
+                //Act
+                const response = await request.patch(`/tasks/${validTaskId}`).send(spoofData);
+
+                //Assert
+                expect(response.status).to.equal(404);
+            });
         })
     })
 })
