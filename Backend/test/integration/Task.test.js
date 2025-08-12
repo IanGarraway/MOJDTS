@@ -68,7 +68,7 @@ describe("Tests of Task Routes", () => {
                 }
 
                 //Act
-                const response = await request.post("/newtask").send(testTask);
+                const response = await request.post("/tasks").send(testTask);
 
                 //Assert
                 expect(response.status).to.equal(201);
@@ -83,7 +83,7 @@ describe("Tests of Task Routes", () => {
                 }
 
                 //Act
-                const response = await request.post("/newtask").send(testTask);
+                const response = await request.post("/tasks").send(testTask);
 
                 //Assert
                 expect(response.status).to.equal(400);
@@ -98,7 +98,7 @@ describe("Tests of Task Routes", () => {
                 }
 
                 //Act
-                const response = await request.post("/newtask").send(testTask);
+                const response = await request.post("/tasks").send(testTask);
 
                 //Assert
                 expect(response.status).to.equal(400);
@@ -112,7 +112,7 @@ describe("Tests of Task Routes", () => {
                 }
 
                 //Act
-                const response = await request.post("/newtask").send(testTask);
+                const response = await request.post("/tasks").send(testTask);
 
                 //Assert
                 expect(response.status).to.equal(400);
@@ -131,10 +131,10 @@ describe("Tests of Task Routes", () => {
                     "taskDueDate": '2025-12-08T00:00:00.000Z'
                 }
 
-                await request.post("/newtask").send(testTask);
+                await request.post("/tasks").send(testTask);
 
                 //act
-                const response = await request.get("/getall");
+                const response = await request.get("/tasks");
 
                 //assert
                 expect(response.status).to.equal(200);
@@ -164,11 +164,11 @@ describe("Tests of Task Routes", () => {
                     "taskDueDate": '2025-12-08T00:00:00.000Z'
                 }
 
-                await request.post("/newtask").send(testTask1);
-                await request.post("/newtask").send(testTask2);
+                await request.post("/tasks").send(testTask1);
+                await request.post("/tasks").send(testTask2);
 
                 //act
-                const response = await request.get("/getall");
+                const response = await request.get("/tasks");
 
                 //assert
                 expect(response.status).to.equal(200);
@@ -190,7 +190,7 @@ describe("Tests of Task Routes", () => {
                 const taskId = createdTask._id.toString();                
 
                 //Act
-                const response = await request.get(`/${taskId}`);
+                const response = await request.get(`/tasks/${taskId}`);
 
                 //Assert
                 expect(response.status).to.equal(200);
@@ -210,7 +210,7 @@ describe("Tests of Task Routes", () => {
                 const taskId = "689a2ec243c64536c8086bb5";
 
                 //Act
-                const response = await request.get(`/${taskId}`);                
+                const response = await request.get(`/tasks/${taskId}`);                
 
                 //Assert
                 expect(response.status).to.equal(404);                
@@ -228,7 +228,7 @@ describe("Tests of Task Routes", () => {
                 const taskId = "1234";
 
                 //Act
-                const response = await request.get(`/${taskId}`);                
+                const response = await request.get(`/tasks/${taskId}`);                
 
                 //Assert
                 expect(response.status).to.equal(400);                

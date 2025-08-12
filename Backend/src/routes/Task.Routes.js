@@ -26,14 +26,14 @@ export default class TaskRoutes{
             next();
         });
 
-        this.#router.post('/newtask', [
+        this.#router.post('/tasks', [
             body(`taskTitle`).exists().notEmpty().escape(),
             body(`taskStatus`).exists().notEmpty().escape(),
             body(`taskDueDate`).exists().notEmpty().escape()
         ], this.#controller.newTask);
 
-        this.#router.get('/getall', this.#controller.getAll);
-        this.#router.get('/:_id', this.#controller.get)
+        this.#router.get('/tasks', this.#controller.getAll);
+        this.#router.get('/tasks/:_id', this.#controller.get)
         
     };
     getRouter = () => { return this.#router; };
