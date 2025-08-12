@@ -37,4 +37,8 @@ export default class TaskService{
             return await newTask.save();   
     }
 
+    delete = async (req) => {
+        return await Task.deleteOne({"_id": req.params._id})
+    }
+
 }

@@ -35,6 +35,7 @@ export default class TaskRoutes{
         this.#router.get('/tasks', this.#controller.getAll);
         this.#router.get('/tasks/:_id', this.#controller.get);
         this.#router.patch('/tasks/:_id', this.#controller.patch);
+        this.#router.delete('/tasks/:_id', this.#controller.delete);
         
     };
     getRouter = () => { return this.#router; };

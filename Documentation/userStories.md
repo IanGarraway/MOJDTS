@@ -89,8 +89,8 @@
 
 #### Backend
 
-- [ ] DELETE {id} endpoint created
-- [ ] Return 204 on successful deletion
+- [x] DELETE {id} endpoint created
+- [x] Return 204 on successful deletion
 - [ ] Return 404 not found if task doesn't exist
 - [ ] returns 400 if invalid id is sent
 

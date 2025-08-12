@@ -314,5 +314,26 @@ describe("Tests of Task Routes", () => {
                 expect(response.status).to.equal(400);
             });
         })
+
+        describe("DELETE requests to /tasks", () => {
+            it("Should delete a task when the id is sent", async () => {
+                //Arrange
+                let testTask = {
+                    "taskTitle": 'Test Task',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                const createdTask = await Task.create(testTask);
+
+                //Act
+                const response = await request.delete(`/tasks/${createdTask._id}`)
+
+                //Assert
+                expect(response.status).to.equal(204);
+                const tasks = await Task.find({});
+                expect(tasks).to.be.an("array").of.length(0);
+            });            
+        })
     })
 })

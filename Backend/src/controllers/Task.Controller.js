@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import TaskService from "../services/Task.Service.js";
-import Task from "../models/Task.model.js";
 import { validationResult } from "express-validator";
 
 
@@ -45,11 +44,18 @@ export default class TaskController{
         if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
             return res.status(400).send({ message: "Invalid task ID format" });
         }
-        
+
         const updatedTask = await this.#taskService.patch(req);
         
         if (updatedTask == null) { return res.status(404).send({ message: "No task found" }); }        
         
         return res.status(200).send(updatedTask);
+    }
+
+    delete = async (req, res) => { 
+        const result = await this.#taskService.delete(req);
+
+        return res.status(204).send();
+        
     }
 }
