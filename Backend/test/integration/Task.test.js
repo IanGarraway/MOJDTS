@@ -333,7 +333,18 @@ describe("Tests of Task Routes", () => {
                 expect(response.status).to.equal(204);
                 const tasks = await Task.find({});
                 expect(tasks).to.be.an("array").of.length(0);
-            });            
+            });
+            
+            it("Should return 404 if no task with that id is found", async () => {
+                //Arrange
+                const validTaskId = "689a2ec243c64536c8086bb5";
+
+                //Act
+                const response = await request.delete(`/tasks/${validTaskId}`);
+
+                //Assert
+                expect(response.status).to.equal(404);
+            })
         })
     })
 })
