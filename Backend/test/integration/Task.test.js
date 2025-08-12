@@ -344,6 +344,18 @@ describe("Tests of Task Routes", () => {
 
                 //Assert
                 expect(response.status).to.equal(404);
+            });
+
+            it("Should return 400 if task id is invalid", async () => {
+                //Arrange
+                const invalidTaskId = "1234";
+
+                //Act
+                const response = await request.delete(`/tasks/${invalidTaskId}`);
+
+                //Assert
+                expect(response.status).to.equal(400);
+                
             })
         })
     })

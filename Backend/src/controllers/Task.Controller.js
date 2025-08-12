@@ -52,7 +52,11 @@ export default class TaskController{
         return res.status(200).send(updatedTask);
     }
 
-    delete = async (req, res) => { 
+    delete = async (req, res) => {
+        if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
+            return res.status(400).send({ message: "Invalid task ID format" });
+        }
+        
         const result = await this.#taskService.delete(req);
 
         if (result.deletedCount === 0) { return res.status(404).send(); }
