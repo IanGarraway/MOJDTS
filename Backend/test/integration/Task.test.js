@@ -301,6 +301,18 @@ describe("Tests of Task Routes", () => {
                 //Assert
                 expect(response.status).to.equal(404);
             });
+
+            it("Should return 400 if id is invalid", async () => {
+                //Arrange
+                const invalidTaskId = "12345";
+                const spoofData = { "taskStatus": 2 };
+
+                //Act
+                const response = await request.patch(`/tasks/${invalidTaskId}`).send(spoofData);
+
+                //Assert
+                expect(response.status).to.equal(400);
+            });
         })
     })
 })
