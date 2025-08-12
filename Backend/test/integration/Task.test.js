@@ -233,6 +233,40 @@ describe("Tests of Task Routes", () => {
                 //Assert
                 expect(response.status).to.equal(400);                
             });
+
+            it("Should return the correct task when the id is sent and there are multiple tasks", async () => {
+                //arrange
+                let testTask1 = {
+                    "taskTitle": 'Test Task 1',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                let testTask2 = {
+                    "taskTitle": 'Test Task 2',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                let testTask3 = {
+                    "taskTitle": 'Test Task 3',
+                    "taskDescription": 'Test Task',
+                    "taskStatus": 1,
+                    "taskDueDate": '2025-12-08T00:00:00.000Z'
+                }
+                await Task.create(testTask1);
+                const createdTask = await Task.create(testTask2);
+                await Task.create(testTask3);
+                const taskId = createdTask._id.toString();                
+
+                //Act
+                const response = await request.get(`/tasks/${taskId}`);
+
+                //Assert
+                expect(response.status).to.equal(200);
+                expect(response.body).to.be.an("object");
+                expect(response.body.taskTitle).to.equal(testTask2.taskTitle);
+            });
         })
     })
 })
