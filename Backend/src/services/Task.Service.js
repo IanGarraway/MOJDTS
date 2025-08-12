@@ -26,4 +26,15 @@ export default class TaskService{
         );
     }
 
+    newTask = async (req) => {
+        const newTask = new Task({
+                taskTitle: req.body.taskTitle,
+                taskDescription: req.body.taskDescription,
+                taskStatus: req.body.taskStatus,
+                taskDueDate: req.body.taskDueDate
+            });            
+            
+            return await newTask.save();   
+    }
+
 }
