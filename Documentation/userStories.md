@@ -36,7 +36,7 @@
 
 #### frontend
 
-- [ ] Task list view created
+- [x] Task list view created
 - [ ] API call to GET /getall
 - [ ] Display task in a clear readable format
 - [ ] Show "No tasks found" if list is empty
@@ -92,7 +92,7 @@
 - [x] DELETE {id} endpoint created
 - [x] Return 204 on successful deletion
 - [x] Return 404 not found if task doesn't exist
-- [ ] returns 400 if invalid id is sent
+- [x] returns 400 if invalid id is sent
 
 #### Frontend
 
