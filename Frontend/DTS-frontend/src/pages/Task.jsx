@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import { FloatingLabel, Form, Row, Col, CloseButton, Button, FormGroup } from 'react-bootstrap';
 
-const Task = (task) => {
+const Task = ({task}) => {
     const [deleteEnabled, setDeleteEnabled] = useState(false);
     const isNewTask = !task;
 
     const [title, setTitle] = useState(task?.taskTitle || '');
     const [description, setDescription] = useState(task?.taskDescription || '');
     const [dueDate, setDueDate] = useState(task?.taskDueDate || '');
-    const [status, setStatus] = useState(task?.taskStatus || 1);
+    const [status, setStatus] = useState(task?.taskStatus || 1);    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -91,10 +91,10 @@ const Task = (task) => {
                             id="confirm-delete-switch"
                             checked={deleteEnabled}
                             onChange={(e) => setDeleteEnabled(e.target.checked)}
-                            hidden={!isNewTask}
+                            hidden={isNewTask}
                         />
 
-                        <Button variant="danger" disabled={!deleteEnabled} hidden={!isNewTask}>
+                        <Button variant="danger" disabled={!deleteEnabled} hidden={isNewTask}>
                             Delete
                         </Button>
                     </Col>

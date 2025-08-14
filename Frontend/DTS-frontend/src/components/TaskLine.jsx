@@ -3,7 +3,7 @@ import { FloatingLabel, Form, Card, Badge } from 'react-bootstrap'
 import TaskStatusTool from '../utils/TaskStatus.Tool';
 
 
-export const TaskLine = ({ task }) => {
+export const TaskLine = ({ task, setTask, setShow }) => {
     const statusText = TaskStatusTool.statusToText(task.taskStatus);
     const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
@@ -16,11 +16,16 @@ export const TaskLine = ({ task }) => {
         hour12: true,
     });
 
+    const onTaskClick = () => {
+        setTask(task);
+        setShow(true);
+    }
+
     
     
     return (
         <div className='taskCard'>
-            <Card bg={'light'} border={'dark'} text={'dark'} >
+            <Card bg={'light'} border={'dark'} text={'dark'} onClick={onTaskClick}>
                 <Card.Body>
                     <Card.Title>{task.taskTitle}</Card.Title>
                     <Card.Text>{task.taskDescription}</Card.Text>
