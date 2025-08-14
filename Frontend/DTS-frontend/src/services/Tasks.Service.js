@@ -7,8 +7,14 @@ export default class TasksService{
 
     
     static async getAll() {         
-        const response = await axios.get(`${apiURL}/tasks`);        
+        try {
+            const response = await axios.get(`${apiURL}/tasks`);
 
-        return response;
+            return response;
+        } catch (e) {
+            console.log(e.message);
+            throw e;
+        }
+
     }
 }

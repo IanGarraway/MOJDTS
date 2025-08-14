@@ -43,6 +43,14 @@ describe("Tasks Services Tests", () => {
             expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/tasks');
         });
 
+        test('throws an error if axios fails', async () => {
+            //Arrange
+            const error = new Error('Network Error');            
+            axios.get.mockRejectedValue(error);
+
+            await expect(TasksService.getAll()).rejects.toThrow('Network Error');
+        });
+
     });
     
 })
