@@ -3,6 +3,7 @@ import './App.css'
 
 import Header from './components/Header'
 import { Tasks } from './pages/Tasks'
+import Task from './pages/Task';
 
 function App() {
   
@@ -11,7 +12,9 @@ function App() {
     <>
       <div className='allApp'>
         <Header />
-        <Tasks />
+        {/* <Tasks /> */}
+        <Task />
+
       </div>
     </>
   )
