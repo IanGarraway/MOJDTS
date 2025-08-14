@@ -4,13 +4,8 @@ import TaskStatusTool from '../utils/TaskStatus.Tool';
 
 
 export const TaskLine = ({ task }) => {
-    const statusText = TaskStatusTool.StatusToText(task.taskStatus);        
-
-    const statusBadgeStyle = {
-        1: "warning",
-        2: "primary",
-        3: "success"
-    }[task.taskStatus] || "secondary";
+    const statusText = TaskStatusTool.StatusToText(task.taskStatus);
+    const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
     const dueDate = new Date(task.taskDueDate).toLocaleDateString('en-UK', {
         year: 'numeric',
