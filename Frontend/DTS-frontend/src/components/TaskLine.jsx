@@ -4,7 +4,7 @@ import TaskStatusTool from '../utils/TaskStatus.Tool';
 
 
 export const TaskLine = ({ task }) => {
-    const statusText = TaskStatusTool.StatusToText(task.taskStatus);
+    const statusText = TaskStatusTool.statusToText(task.taskStatus);
     const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
     const dueDate = new Date(task.taskDueDate).toLocaleDateString('en-UK', {

@@ -9,7 +9,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 1
 
             //act
-            const response = TaskStatusTool.StatusToText(statusTestCode);
+            const response = TaskStatusTool.statusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("Pending");
@@ -20,7 +20,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 2
 
             //act
-            const response = TaskStatusTool.StatusToText(statusTestCode);
+            const response = TaskStatusTool.statusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("In Progress");
@@ -31,7 +31,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 3
 
             //act
-            const response = TaskStatusTool.StatusToText(statusTestCode);
+            const response = TaskStatusTool.statusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("Completed");
@@ -42,7 +42,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 4
 
             //act
-            const response = TaskStatusTool.StatusToText(statusTestCode);
+            const response = TaskStatusTool.statusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("Unknown");
@@ -53,7 +53,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = "invalid"
 
             //act
-            const response = TaskStatusTool.StatusToText(statusTestCode);
+            const response = TaskStatusTool.statusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("Unknown");
@@ -66,7 +66,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 1
 
             //act
-            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+            const response = TaskStatusTool.statusToBadgeStyle(statusTestCode);
 
             //assert
             expect(response).to.equal("warning");
@@ -76,7 +76,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 2
 
             //act
-            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+            const response = TaskStatusTool.statusToBadgeStyle(statusTestCode);
 
             //assert
             expect(response).to.equal("primary");
@@ -86,7 +86,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 3
 
             //act
-            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+            const response = TaskStatusTool.statusToBadgeStyle(statusTestCode);
 
             //assert
             expect(response).to.equal("success");
@@ -96,7 +96,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 4
 
             //act
-            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+            const response = TaskStatusTool.statusToBadgeStyle(statusTestCode);
 
             //assert
             expect(response).to.equal("secondary");
@@ -106,7 +106,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 4
 
             //act
-            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+            const response = TaskStatusTool.statusToBadgeStyle(statusTestCode);
 
             //assert
             expect(response).to.equal("secondary");

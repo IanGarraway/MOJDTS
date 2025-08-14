@@ -1,6 +1,6 @@
 export default class TaskStatusTool{
 
-    static StatusToText(statusCode) {
+    static statusToText(statusCode) {
         return {
             1: "Pending",
             2: "In Progress",
@@ -8,7 +8,7 @@ export default class TaskStatusTool{
         }[statusCode]||"Unknown";
     }
 
-    static StatusToBadgeStyle(statusCode) {
+    static statusToBadgeStyle(statusCode) {
         return {
             1: "warning",
             2: "primary",
