@@ -47,5 +47,16 @@ describe("Tests of the Task Status conversion tool", () => {
             //assert
             expect(response).to.equal("Unknown");            
         })
+
+        test("Should return 'Unknown' to invalid status codes", () => {
+            //arrange
+            const statusTestCode = "invalid"
+
+            //act
+            const response = TaskStatusTool.StatusText(statusTestCode);
+
+            //assert
+            expect(response).to.equal("Unknown");            
+        })
     })
 })
