@@ -32,9 +32,7 @@ export const Tasks = () => {
             <Button variant="outline-primary" onClick={newTaskClick} >New Task</Button>
             <TaskTable tasks={tasks} setTask={setTask} setShow={setShow} />
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Task</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton />
                 <Modal.Body>
                     <Task task={task} />
                 </Modal.Body>

@@ -34,10 +34,7 @@ const Task = ({task}) => {
                                 onChange={(e) => setTitle(e.target.value)}
                             />
                         </FloatingLabel>
-                    </Col>
-                    <Col xs="auto">
-                        <CloseButton />
-                    </Col>
+                    </Col>                    
                 </Row>
       
                 <FloatingLabel controlId="taskDescription" label="Task Description">
@@ -79,13 +76,12 @@ const Task = ({task}) => {
                     <Col>
                         <Button
                             variant="primary"
-                            type="submit"
-                            
+                            type="submit"                            
                         >
                             Save
                         </Button>
                     </Col>
-                    <Col className="text-end">
+                    <Col className="text-end d-flex align-items-center justify-content-end">
                         <Form.Check
                             type="switch"
                             id="confirm-delete-switch"

@@ -17,7 +17,7 @@
 
 #### frontend
 
-- [ ] interface screen for creating a task
+- [x] interface screen for creating a task
 - [ ] input validation matching backend rules
 - [ ] api call to POST /newtask
 - [ ] confirmation message on successful task creation
@@ -56,7 +56,7 @@
 
 #### frontend
 
-- [ ] Task detail view created
+- [x] Task detail view created
 - [ ] API call to GET /{id}
 - [ ] Show meaningful error message if task not found
 
@@ -78,7 +78,7 @@
 
 #### frontend
 
-- [ ] Task edit form implemented
+- [x] Task edit form implemented
 - [ ] Client-side validation matches backend rules
 - [ ] API call to PATCH /{id}
 - [ ] Show success message when update complete
@@ -96,7 +96,7 @@
 
 #### Frontend
 
-- [ ] Delete button implemented with confirmation prompt
+- [x] Delete button implemented with confirmation prompt
 - [ ] API call to DELETE /{id}
 - [ ] Remove deleted task from UI without page refresh
 - [ ] Show user friendly error message if deletion fails
