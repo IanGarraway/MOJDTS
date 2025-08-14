@@ -36,5 +36,16 @@ describe("Tests of the Task Status conversion tool", () => {
             //assert
             expect(response).to.equal("Completed");            
         })
+
+        test("Should return 'Unknown' to other status codes", () => {
+            //arrange
+            const statusTestCode = 4
+
+            //act
+            const response = TaskStatusTool.StatusText(statusTestCode);
+
+            //assert
+            expect(response).to.equal("Unknown");            
+        })
     })
 })
