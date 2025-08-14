@@ -9,7 +9,7 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 1
 
             //act
-            const response = TaskStatusTool.StatusText(statusTestCode);
+            const response = TaskStatusTool.StatusToText(statusTestCode);
 
             //assert
             expect(response).to.equal("Pending");
@@ -20,10 +20,10 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 2
 
             //act
-            const response = TaskStatusTool.StatusText(statusTestCode);
+            const response = TaskStatusTool.StatusToText(statusTestCode);
 
             //assert
-            expect(response).to.equal("In Progress");            
+            expect(response).to.equal("In Progress");
         })
 
         test("Should return 'Completed' to a status code of 3", () => {
@@ -31,10 +31,10 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 3
 
             //act
-            const response = TaskStatusTool.StatusText(statusTestCode);
+            const response = TaskStatusTool.StatusToText(statusTestCode);
 
             //assert
-            expect(response).to.equal("Completed");            
+            expect(response).to.equal("Completed");
         })
 
         test("Should return 'Unknown' to other status codes", () => {
@@ -42,10 +42,10 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = 4
 
             //act
-            const response = TaskStatusTool.StatusText(statusTestCode);
+            const response = TaskStatusTool.StatusToText(statusTestCode);
 
             //assert
-            expect(response).to.equal("Unknown");            
+            expect(response).to.equal("Unknown");
         })
 
         test("Should return 'Unknown' to invalid status codes", () => {
@@ -53,10 +53,23 @@ describe("Tests of the Task Status conversion tool", () => {
             const statusTestCode = "invalid"
 
             //act
-            const response = TaskStatusTool.StatusText(statusTestCode);
+            const response = TaskStatusTool.StatusToText(statusTestCode);
 
             //assert
-            expect(response).to.equal("Unknown");            
+            expect(response).to.equal("Unknown");
+        })
+    });
+
+    describe("Tests of the status code to badge style function", () => {
+        test("Should return 'Warning' to status code 1", () => {
+            //arrange
+            const statusTestCode = 1
+
+            //act
+            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+
+            //assert
+            expect(response).to.equal("warning");
         })
     })
 })

@@ -1,13 +1,10 @@
 import React from 'react'
 import { FloatingLabel, Form, Card, Badge } from 'react-bootstrap'
+import TaskStatusTool from '../utils/TaskStatus.Tool';
 
 
 export const TaskLine = ({ task }) => {
-    const statusText = {
-        1: "Pending",
-        2: "In Progress",
-        3: "Completed"
-    }[task.taskStatus] || "Unknown";
+    const statusText = TaskStatusTool.StatusToText(task.taskStatus);        
 
     const statusBadgeStyle = {
         1: "warning",
