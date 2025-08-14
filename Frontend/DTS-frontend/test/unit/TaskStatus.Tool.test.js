@@ -81,5 +81,16 @@ describe("Tests of the Task Status conversion tool", () => {
             //assert
             expect(response).to.equal("primary");
         });
+        test("Should return 'success' to status code 1", () => {
+            //arrange
+            const statusTestCode = 3
+
+            //act
+            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+
+            //assert
+            expect(response).to.equal("success");
+        });
+        
     })
 })

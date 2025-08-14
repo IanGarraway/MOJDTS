@@ -12,6 +12,7 @@ export default class TaskStatusTool{
         return {
             1: "warning",
             2: "primary",
+            3: "success"
             
         }[statusCode];
     }
