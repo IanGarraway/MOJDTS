@@ -14,7 +14,7 @@ export default class TaskStatusTool{
             2: "primary",
             3: "success"
             
-        }[statusCode];
+        }[statusCode]||"secondary";
     }
 
 }

@@ -91,6 +91,27 @@ describe("Tests of the Task Status conversion tool", () => {
             //assert
             expect(response).to.equal("success");
         });
+        test("Should return 'secondary' to status other status codes", () => {
+            //arrange
+            const statusTestCode = 4
+
+            //act
+            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+
+            //assert
+            expect(response).to.equal("secondary");
+        });
+        test("Should return 'secondary' to status invalid status codes", () => {
+            //arrange
+            const statusTestCode = 4
+
+            //act
+            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+
+            //assert
+            expect(response).to.equal("secondary");
+        });
+
         
     })
 })
