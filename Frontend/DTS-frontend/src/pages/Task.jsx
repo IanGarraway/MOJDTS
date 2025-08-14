@@ -5,9 +5,11 @@ const Task = ({task}) => {
     const [deleteEnabled, setDeleteEnabled] = useState(false);
     const isNewTask = !task;
 
+    const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : ''; // "YYYY-MM-DDTHH:mm"
+
     const [title, setTitle] = useState(task?.taskTitle || '');
     const [description, setDescription] = useState(task?.taskDescription || '');
-    const [dueDate, setDueDate] = useState(task?.taskDueDate || '');
+    const [dueDate, setDueDate] = useState(initialDueDate);
     const [status, setStatus] = useState(task?.taskStatus || 1);    
 
     const handleSubmit = (e) => {
