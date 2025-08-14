@@ -23,9 +23,26 @@ describe("Tasks Services Tests", () => {
             const response = await TasksService.getAll();
 
             //Assert
-            expect(response).to.equal(mockData);
+            expect(response.data).to.equal(mockData);
             expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/tasks');
         });
+
+        test("Should return empty array if no tasks", async () => {
+            //Arrange
+            const mockData = [];
+            const mockResponsePayload = { status: 200, data: mockData };
+
+            axios.get.mockResolvedValue(mockResponsePayload);
+
+            //Act
+            const response = await TasksService.getAll();
+
+            //Assert
+            expect(response.status).to.equal(200);
+            expect(response.data).to.equal(mockData);            
+            expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/tasks');
+        });
+
     });
     
 })
