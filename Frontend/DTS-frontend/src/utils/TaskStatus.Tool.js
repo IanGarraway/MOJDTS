@@ -9,7 +9,11 @@ export default class TaskStatusTool{
     }
 
     static StatusToBadgeStyle(statusCode) {
-        return "warning";
+        return {
+            1: "warning",
+            2: "primary",
+            
+        }[statusCode];
     }
 
 }

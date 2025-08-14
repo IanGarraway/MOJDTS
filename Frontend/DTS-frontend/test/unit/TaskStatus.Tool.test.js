@@ -61,7 +61,7 @@ describe("Tests of the Task Status conversion tool", () => {
     });
 
     describe("Tests of the status code to badge style function", () => {
-        test("Should return 'Warning' to status code 1", () => {
+        test("Should return 'warning' to status code 1", () => {
             //arrange
             const statusTestCode = 1
 
@@ -70,6 +70,16 @@ describe("Tests of the Task Status conversion tool", () => {
 
             //assert
             expect(response).to.equal("warning");
-        })
+        });
+        test("Should return 'primary' to status code 1", () => {
+            //arrange
+            const statusTestCode = 2
+
+            //act
+            const response = TaskStatusTool.StatusToBadgeStyle(statusTestCode);
+
+            //assert
+            expect(response).to.equal("primary");
+        });
     })
 })
