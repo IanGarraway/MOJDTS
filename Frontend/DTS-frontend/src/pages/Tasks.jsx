@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TaskService from '../services/Tasks.Service';
+import TasksService from '../services/Tasks.Service';
 import TaskTable from '../components/TaskTable';
 import Task from './Task';
 import { Modal, Button } from 'react-bootstrap';
@@ -10,7 +10,7 @@ export const Tasks = () => {
     const [show, setShow] = useState(false);
 
     const getTasks = async () => {
-        const tasksData = await TaskService.getAll();
+        const tasksData = await TasksService.getAll();
         setTasks(tasksData);
 
     }
