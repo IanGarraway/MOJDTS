@@ -25,5 +25,16 @@ describe("Tests of the Task Status conversion tool", () => {
             //assert
             expect(response).to.equal("In Progress");            
         })
+
+        test("Should return 'Completed' to a status code of 3", () => {
+            //arrange
+            const statusTestCode = 3
+
+            //act
+            const response = TaskStatusTool.StatusText(statusTestCode);
+
+            //assert
+            expect(response).to.equal("Completed");            
+        })
     })
 })
