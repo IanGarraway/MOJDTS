@@ -72,8 +72,9 @@ describe("Tests for Tasks.Services", () => {
             //Act
             const response = await service.newTask(mockPayload);
 
-            //Assert            
-            expect(response).toEqual(tasks[0]);
+            //Assert
+            expect(response.status).toEqual(201);
+            expect(response.data).toEqual(tasks[0]);
         })
 
         test("Should respond with status 400 and the error message", async () => {

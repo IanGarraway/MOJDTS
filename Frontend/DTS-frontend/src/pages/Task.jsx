@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { FloatingLabel, Form, Row, Col, CloseButton, Button, FormGroup } from 'react-bootstrap';
+import TasksService from '../services/Tasks.Services';
+import TaskTools from '../utils/Tasks.Tools';
 
 
 function tomorrowDate() {
@@ -12,23 +14,34 @@ function tomorrowDate() {
     return tomorrow.toISOString().slice(0, 16);
 }
 
-const Task = ({task}) => {
-    const [deleteEnabled, setDeleteEnabled] = useState(false);
+const Task = ({task, setShow, getTasks}) => {
     const isNewTask = !task;
-
+    
     const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : tomorrowDate(); // "YYYY-MM-DDTHH:mm"
-
-    const [title, setTitle] = useState(task?.taskTitle || '');
+    
+    const [deleteEnabled, setDeleteEnabled] = useState(false);
     const [description, setDescription] = useState(task?.taskDescription || '');
     const [dueDate, setDueDate] = useState(initialDueDate);
+    const [errorMessage, setErrorMessage] = useState('');
     const [status, setStatus] = useState(task?.taskStatus || 1);
+    const [title, setTitle] = useState(task?.taskTitle || '');
     
     const validTask = !!(title.trim() && dueDate.trim() && status);
     
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isNewTask) {
+            const taskService = new TasksService();
+            const response = await taskService.newTask(TaskTools.newTask(title, description, dueDate, status));
+            if (response.error) {
+                setErrorMessage(response.error);
+            } else {
+                getTasks();
+                setShow(false);
+            }
+
+
             
         }
         

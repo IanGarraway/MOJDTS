@@ -22,7 +22,7 @@ export const Tasks = () => {
             if (response.error) {
                 setErrorMessage(response.error);                
             }else {
-                setTasks(response.data);
+                setTasks(response);
             }
         } catch (e) {
             
@@ -49,7 +49,7 @@ export const Tasks = () => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton />
                 <Modal.Body>
-                    <Task task={task} />
+                    <Task task={task} setShow={setShow} getTasks={getTasks} />
                 </Modal.Body>
             </Modal>
         </div>
