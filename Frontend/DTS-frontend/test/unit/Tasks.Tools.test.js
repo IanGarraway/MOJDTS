@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
 
-import TaskService from "../../src/services/Tasks.Service";
+import TaskTools from "../../src/utils/Tasks.Tools";
 import {tasks} from "../data/data.json"
 
 
@@ -15,7 +15,7 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskStatus": 2 };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -31,7 +31,7 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskTitle": "Modified Task Title" };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -47,7 +47,7 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskDueDate": "2025-14-08T00:00:00.000Z" };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -63,7 +63,7 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskDescription": "modified description" };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -86,7 +86,7 @@ describe("Tasks.Service Tests", () => {
             };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -110,7 +110,7 @@ describe("Tasks.Service Tests", () => {
             };
 
             //Act
-            const response = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskTools.patchPayload(originalTask, modifiedTask);
 
             //Assert
             expect(response).to.deep.equal(expectedPayload);
@@ -135,7 +135,7 @@ describe("Tasks.Service Tests", () => {
             };
 
             //Act
-            const response = TaskService.newTask(mockTitle, mockDescription, mockDueDate, mockStatus);
+            const response = TaskTools.newTask(mockTitle, mockDescription, mockDueDate, mockStatus);
 
             //Assert
             expect(response).toEqual(expectedResult);

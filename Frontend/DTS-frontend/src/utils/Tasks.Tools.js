@@ -1,5 +1,5 @@
 
-export default class TaskService {
+export default class TaskTools {
 
     static patchPayload(originalTask, updatedTask) {
         const fieldsToCheck = ["taskTitle", "taskDescription", "taskDueDate", "taskStatus"];
