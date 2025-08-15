@@ -25,10 +25,10 @@ export default class TaskController{
         }
     }
 
-    getAll = async (req, res) => {        
+    getAll = async (req, res) => {                
         const taskData = await this.#taskService.getAll();
         
-        return res.status(200).send(taskData);        
+        return res.status(200).send(taskData);
     }
 
     get = async (req, res) => { 

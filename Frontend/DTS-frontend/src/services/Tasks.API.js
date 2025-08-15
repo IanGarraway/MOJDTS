@@ -6,9 +6,8 @@ export default class TasksAPI{
 
     
     static async getAll() {         
-        try {
+        try {            
             const response = await axios.get(`${apiURL}/tasks`);
-
             return response;
         } catch (e) {
             console.log(e.message);
@@ -19,7 +18,7 @@ export default class TasksAPI{
     static async get(id) {
         const response = await axios.get(`${apiURL}/tasks/${id}`);
 
-            return response;
+        return response;
     }
 
     static async newTask(taskData) {
