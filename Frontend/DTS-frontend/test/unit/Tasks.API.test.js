@@ -2,7 +2,7 @@ import axios from 'axios';
 import { beforeEach, describe, expect, test } from "vitest";
 import { tasks } from '../data/data.json';
 
-import TasksService from '../../src/services/Tasks.Service';
+import TasksAPI from '../../src/services/Tasks.API';
 
 vi.mock('axios');
 
@@ -20,7 +20,7 @@ describe("Tasks Services Tests", () => {
             axios.get.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.getAll();
+            const response = await TasksAPI.getAll();
 
             //Assert
             expect(response.data).to.equal(mockData);
@@ -35,7 +35,7 @@ describe("Tasks Services Tests", () => {
             axios.get.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.getAll();
+            const response = await TasksAPI.getAll();
 
             //Assert
             expect(response.status).to.equal(200);
@@ -49,7 +49,7 @@ describe("Tasks Services Tests", () => {
             axios.get.mockRejectedValue(error);
 
             //Assert
-            await expect(TasksService.getAll()).rejects.toThrow('Network Error');
+            await expect(TasksAPI.getAll()).rejects.toThrow('Network Error');
         });
 
     });
@@ -67,7 +67,7 @@ describe("Tasks Services Tests", () => {
             axios.get.mockResolvedValue(mockResponsePayload);
             
             //Act
-            const response = await TasksService.get(mockData._id);
+            const response = await TasksAPI.get(mockData._id);
 
             //Assert
             expect(response.data).to.equal(mockData);
@@ -81,7 +81,7 @@ describe("Tasks Services Tests", () => {
             axios.get.mockRejectedValue(error);
 
             //Assert
-            await expect(TasksService.get()).rejects.toThrow('Network Error');
+            await expect(TasksAPI.get()).rejects.toThrow('Network Error');
         });
     
     });
@@ -106,7 +106,7 @@ describe("Tasks Services Tests", () => {
             axios.post.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.newTask(mockDeliveryPayload);
+            const response = await TasksAPI.newTask(mockDeliveryPayload);
 
             //Assert
             expect(response.status).to.equal(201);
@@ -120,7 +120,7 @@ describe("Tasks Services Tests", () => {
             axios.post.mockRejectedValue(error);
 
             //Assert
-            await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
+            await expect(TasksAPI.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
         });
     });
 
@@ -140,7 +140,7 @@ describe("Tasks Services Tests", () => {
             axios.patch.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.patch(mockData._id, mockDeliveryPayload);
+            const response = await TasksAPI.patch(mockData._id, mockDeliveryPayload);
 
             //Assert
             expect(response.status).to.equal(200);
@@ -155,7 +155,7 @@ describe("Tasks Services Tests", () => {
             axios.patch.mockRejectedValue(error);
 
             //Assert
-            await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
+            await expect(TasksAPI.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
         });
     });
 
@@ -172,7 +172,7 @@ describe("Tasks Services Tests", () => {
             axios.delete.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.delete(mockID);
+            const response = await TasksAPI.delete(mockID);
 
             //Assert
             expect(response.status).to.equal(204);
@@ -187,7 +187,7 @@ describe("Tasks Services Tests", () => {
             axios.delete.mockRejectedValue(error);
 
             //Assert
-            await expect(TasksService.delete(mockData._id)).rejects.toThrow('Network Error');
+            await expect(TasksAPI.delete(mockData._id)).rejects.toThrow('Network Error');
         });
     })
     

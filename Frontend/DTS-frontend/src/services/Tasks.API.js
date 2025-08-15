@@ -1,9 +1,8 @@
-//import data from "./data.json";
 import axios from "axios";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-export default class TasksService{  
+export default class TasksAPI{  
 
     
     static async getAll() {         
