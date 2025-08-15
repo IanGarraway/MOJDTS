@@ -87,6 +87,11 @@ describe("Tasks Services Tests", () => {
     });
 
     describe("Tests for POST /tasks route", () => {
+beforeEach(() => {
+            axios.post.mockReset();
+        });
+
+
         test("Should return a task, confirming one is created", async () => {
             //Arrange
             const mockData = tasks[0];
@@ -106,6 +111,17 @@ describe("Tasks Services Tests", () => {
             //Assert
             expect(response.status).to.equal(201);
         })
+
+        test("throws an error if axios fails", async () => {
+            //Arrange
+            const mockData = tasks[0];
+            const mockResponsePayload = { status: 201, data: mockData };
+            const error = new Error('Network Error');
+            axios.post.mockRejectedValue(error);
+
+            //Assert
+            await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
+        });
     })
     
 });
