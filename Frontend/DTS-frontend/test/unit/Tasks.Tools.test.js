@@ -4,7 +4,7 @@ import TaskTools from "../../src/utils/Tasks.Tools";
 import {tasks} from "../data/data.json"
 
 
-describe("Tasks.Service Tests", () => {
+describe("Tests for Tasks.Tools ", () => {
     describe("PatchPayload Tests", () => {
         test("Should return a payload with only status in it", () => {
             //Arrange
