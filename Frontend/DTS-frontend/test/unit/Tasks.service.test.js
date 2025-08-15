@@ -78,10 +78,35 @@ describe("Tasks.Service Tests", () => {
             modifiedTask.taskTitle = "Modified Task Title";
             
             
+            
             const expectedPayload = {
                 "taskTitle": "Modified Task Title",
                 "taskDescription": "modified description",
                 "taskDueDate": "2025-14-08T00:00:00.000Z"
+            };
+
+            //Act
+            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+
+            //Assert
+            expect(reponse).to.deep.equal(expectedPayload);
+        });
+
+        test("Should return a payload with title, description, status and date time in it", () => {
+            //Arrange
+            const originalTask = tasks[1];
+            const modifiedTask = structuredClone(originalTask);
+            modifiedTask.taskDueDate = "2025-14-08T00:00:00.000Z";
+            modifiedTask.taskDescription = "modified description";
+            modifiedTask.taskTitle = "Modified Task Title";
+            modifiedTask.taskStatus = 2;
+            
+            
+            const expectedPayload = {
+                "taskTitle": "Modified Task Title",
+                "taskDescription": "modified description",
+                "taskDueDate": "2025-14-08T00:00:00.000Z",
+                 "taskStatus": 2
             };
 
             //Act
