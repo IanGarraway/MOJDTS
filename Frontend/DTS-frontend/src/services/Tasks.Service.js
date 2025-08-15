@@ -30,9 +30,16 @@ export default class TasksService{
         return response;
     }
 
-    static async patch(_id, taskData) {
-        const response = await axios.patch(`${apiURL}/tasks/${_id}`, taskData);
+    static async patch(id, taskData) {
+        const response = await axios.patch(`${apiURL}/tasks/${id}`, taskData);
 
         return response;
+    }
+
+    static async delete(id) {
+        const response = await axios.delete(`${apiURL}/tasks/${id}`);
+
+        return response;
+        
     }
 }

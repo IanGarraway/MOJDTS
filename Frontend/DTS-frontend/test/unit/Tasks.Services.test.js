@@ -157,6 +157,28 @@ describe("Tasks Services Tests", () => {
             //Assert
             await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
         });
+    });
+
+    describe("Tests for DELETE /tasks route", () => { 
+        beforeEach(() => {
+            axios.delete.mockReset();
+        });
+
+        test("Should return 204 on a successful deletion", async () => {
+            //Arrange
+            const mockID = tasks[0]._id;
+            const mockResponsePayload = { status: 204 };
+
+            axios.delete.mockResolvedValue(mockResponsePayload);
+
+            //Act
+            const response = await TasksService.delete(mockID);            
+
+            //Assert
+            expect(response.status).to.equal(204);
+            expect(axios.delete).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockID}`);
+
+        })
     })
     
 });

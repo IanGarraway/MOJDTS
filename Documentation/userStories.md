@@ -80,7 +80,7 @@
 
 - [x] Task edit form implemented
 - [ ] Client-side validation matches backend rules
-- [ ] API call to PATCH /{id}
+- [x] API call to PATCH /{id}
 - [ ] Show success message when update complete
 - [ ] Show user-friendly error message if validation fails or task not found
 
