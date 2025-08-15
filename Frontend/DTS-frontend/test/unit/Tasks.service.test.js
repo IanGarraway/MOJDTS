@@ -9,7 +9,7 @@ describe("Tasks.Service Tests", () => {
         test("Should return a payload with only status in it", () => {
             //Arrange
             const originalTask = tasks[1];
-            const modifiedTask = originalTask;
+            const modifiedTask = structuredClone(originalTask);
             modifiedTask.taskStatus = 2;
             
             const expectedPayload = { "taskStatus": 2 };
@@ -19,6 +19,22 @@ describe("Tasks.Service Tests", () => {
 
             //Assert
             expect(reponse).to.deep.equal(expectedPayload);
+        });
+
+        test("Should return a payload with only title in it", () => {
+            //Arrange
+            const originalTask = tasks[1];
+            const modifiedTask = structuredClone(originalTask);
+            modifiedTask.taskTitle = "Modified Task Title";
+            
+            
+            const expectedPayload = { "taskTitle": "Modified Task Title" };
+
+            //Act
+            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+
+            //Assert
+            expect(reponse).to.deep.equal(expectedPayload);
         })
-    })
+    });
 })
