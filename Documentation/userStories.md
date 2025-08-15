@@ -37,7 +37,7 @@
 #### frontend
 
 - [x] Task list view created
-- [ ] API call to GET /getall
+- [x] API call to GET /getall
 - [ ] Display task in a clear readable format
 - [ ] Show "No tasks found" if list is empty
 

@@ -15,6 +15,11 @@ export default class TasksService{
             console.log(e.message);
             throw e;
         }
+    }
 
+    static async get(id) {
+        const response = await axios.get(`${apiURL}/tasks/${id}`);
+
+            return response;
     }
 }
