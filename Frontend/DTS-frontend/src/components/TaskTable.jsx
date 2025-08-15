@@ -3,7 +3,7 @@ import { TaskLine } from "./TaskLine";
 
 const TaskTable = ({ tasks, setTask, setShow }) => {
     
-    if (!Array.isArray(tasks) || tasks.length === 0) { return (<h2>Loading data...</h2>); }
+    if (!Array.isArray(tasks) || tasks.length === 0) { return (<h2>No tasks found</h2>); }
 
     return (
         <div className="taskTable">

@@ -1,22 +1,36 @@
 import React, {useState} from 'react';
 import { FloatingLabel, Form, Row, Col, CloseButton, Button, FormGroup } from 'react-bootstrap';
 
+
+function tomorrowDate() {
+    //in the case of no existing date, generates a date for the next day at 12 
+    //as a default due date and time
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);  // move to tomorrow
+    tomorrow.setHours(12, 0, 0, 0);            // set time to 12:00:00.000
+
+    return tomorrow.toISOString().slice(0, 16);
+}
+
 const Task = ({task}) => {
     const [deleteEnabled, setDeleteEnabled] = useState(false);
     const isNewTask = !task;
 
-    const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : ''; // "YYYY-MM-DDTHH:mm"
+    const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : tomorrowDate(); // "YYYY-MM-DDTHH:mm"
 
     const [title, setTitle] = useState(task?.taskTitle || '');
     const [description, setDescription] = useState(task?.taskDescription || '');
     const [dueDate, setDueDate] = useState(initialDueDate);
-    const [status, setStatus] = useState(task?.taskStatus || 1);    
+    const [status, setStatus] = useState(task?.taskStatus || 1);
+    
+    const validTask = !!(title.trim() && dueDate.trim() && status);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // use the state variables to save or update
         console.log({ title, description, dueDate, status });
-    };
+    };    
 
     return (
         <div>
@@ -78,7 +92,8 @@ const Task = ({task}) => {
                     <Col>
                         <Button
                             variant="primary"
-                            type="submit"                            
+                            type="submit"
+                            disabled={!validTask}
                         >
                             Save
                         </Button>

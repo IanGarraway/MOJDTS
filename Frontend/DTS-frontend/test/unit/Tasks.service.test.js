@@ -15,10 +15,10 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskStatus": 2 };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
         test("Should return a payload with only title in it", () => {
@@ -31,10 +31,10 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskTitle": "Modified Task Title" };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
         test("Should return a payload with only date time in it", () => {
@@ -47,10 +47,10 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskDueDate": "2025-14-08T00:00:00.000Z" };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
         test("Should return a payload with only description in it", () => {
@@ -63,10 +63,10 @@ describe("Tasks.Service Tests", () => {
             const expectedPayload = { "taskDescription": "modified description" };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
         test("Should return a payload with title, description and date time in it", () => {
@@ -86,10 +86,10 @@ describe("Tasks.Service Tests", () => {
             };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
         test("Should return a payload with title, description, status and date time in it", () => {
@@ -110,10 +110,10 @@ describe("Tasks.Service Tests", () => {
             };
 
             //Act
-            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+            const response = TaskService.patchPayload(originalTask, modifiedTask);
 
             //Assert
-            expect(reponse).to.deep.equal(expectedPayload);
+            expect(response).to.deep.equal(expectedPayload);
         });
 
 

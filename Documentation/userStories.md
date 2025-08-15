@@ -38,7 +38,7 @@
 
 - [x] Task list view created
 - [x] API call to GET /getall
-- [ ] Display task in a clear readable format
+- [x] Display task in a clear readable format
 - [ ] Show "No tasks found" if list is empty
 
 ## User story 3 - View task details
