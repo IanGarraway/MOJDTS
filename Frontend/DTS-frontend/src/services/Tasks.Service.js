@@ -29,4 +29,10 @@ export default class TasksService{
         );
         return response;
     }
+
+    static async patch(_id, taskData) {
+        const response = await axios.patch(`${apiURL}/tasks/${_id}`, taskData);
+
+        return response;
+    }
 }

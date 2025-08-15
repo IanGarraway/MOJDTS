@@ -43,7 +43,7 @@ describe("Tasks Services Tests", () => {
             expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/tasks');
         });
 
-        test('throws an error if axios fails', async () => {
+        test('Should throw an error if axios fails', async () => {
             //Arrange
             const error = new Error('Network Error');
             axios.get.mockRejectedValue(error);
@@ -75,7 +75,7 @@ describe("Tasks Services Tests", () => {
             
         });
 
-        test("throws an error if axios fails", async () => {
+        test("Should throw an error if axios fails", async () => {
             //Arrange
             const error = new Error('Network Error');
             axios.get.mockRejectedValue(error);
@@ -87,7 +87,7 @@ describe("Tasks Services Tests", () => {
     });
 
     describe("Tests for POST /tasks route", () => {
-beforeEach(() => {
+        beforeEach(() => {
             axios.post.mockReset();
         });
 
@@ -112,7 +112,7 @@ beforeEach(() => {
             expect(response.status).to.equal(201);
         })
 
-        test("throws an error if axios fails", async () => {
+        test("Should throw an error if axios fails", async () => {
             //Arrange
             const mockData = tasks[0];
             const mockResponsePayload = { status: 201, data: mockData };
@@ -122,6 +122,30 @@ beforeEach(() => {
             //Assert
             await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
         });
+    });
+
+    describe("Tests for PATCH /tasks route", () => {
+        beforeEach(() => {
+            axios.patch.mockReset();
+        });
+
+        test("Should return a task and status code 200 ", async () => {
+            //Arrange
+            const mockData = tasks[0];
+            const mockResponsePayload = { status: 200, data: mockData };
+            const mockDeliveryPayload = {                
+                "taskStatus": 2,
+            }
+
+            axios.patch.mockResolvedValue(mockResponsePayload);
+
+            //Act
+            const response = await TasksService.patch(mockData._id, mockDeliveryPayload);            
+
+            //Assert
+            expect(response.status).to.equal(200);
+            expect(axios.patch).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockData._id}`, mockDeliveryPayload);
+        })
     })
     
 });
