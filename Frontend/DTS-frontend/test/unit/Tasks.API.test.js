@@ -6,7 +6,7 @@ import TasksAPI from '../../src/services/Tasks.API';
 
 vi.mock('axios');
 
-describe("Tasks Services Tests", () => {
+describe("Tasks API Tests", () => {
     describe("Tests of the GET /tasks Route", () => {
         beforeEach(() => {
             axios.get.mockReset();

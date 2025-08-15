@@ -19,7 +19,7 @@
 
 - [x] interface screen for creating a task
 - [ ] input validation matching backend rules
-- [ ] api call to POST /newtask
+- [x] api call to POST /newtask
 - [ ] confirmation message on successful task creation
 - [ ] user friendly error message if task creation failure
 
