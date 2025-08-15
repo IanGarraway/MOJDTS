@@ -55,10 +55,10 @@ describe("Tests for Tasks.Services", () => {
     });
 
     describe("Tests for newTask function", () => {
-        test("Should respond with status 200 and the new task", async () => {
+        test("Should respond with status 201 and the new task", async () => {
             //Arrange
             const mockAPI = {
-                newTask: vi.fn().mockResolvedValue({ status: 201 , data: tasks[0] }),
+                newTask: vi.fn().mockResolvedValue({ status: 201, data: tasks[0] }),
             };
             const service = new TasksService(mockAPI);
 
@@ -72,9 +72,33 @@ describe("Tests for Tasks.Services", () => {
             //Act
             const response = await service.newTask(mockPayload);
 
-            //Assert
-            expect(response.status).toEqual(201);
-            expect(response.data).toEqual(tasks[0]);
+            //Assert            
+            expect(response).toEqual(tasks[0]);
         })
+
+        test("Should respond with status 400 and the error message", async () => {
+            //Arrange
+            const mockAPI = {
+                newTask: vi.fn().mockResolvedValue({ status: 400 , message: "Bad Request" }),
+            };
+            const service = new TasksService(mockAPI);
+
+            const mockPayload = {
+                "taskDueDate": tasks[0].taskDueDate,
+                "taskStatus": tasks[0].status
+            };
+
+            //Act
+            const response = await service.newTask(mockPayload);
+
+            //Assert
+            expect(response).toHaveProperty("error");
+            expect(response.error).toBe(`Unable to create task. Status: 400 - Bad Request`);
+            expect(mockAPI.newTask).toHaveBeenCalled();
+        })
+
+        
+
+
     })
 })

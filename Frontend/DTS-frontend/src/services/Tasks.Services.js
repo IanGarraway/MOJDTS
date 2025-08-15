@@ -25,7 +25,11 @@ export default class TasksService{
     async newTask(payload) {
         const response = await this.#API.newTask(payload);
 
-        return response;
+        if (response.status === 201) {
+            return response.data;
+        } else {
+            return {error: `Unable to create task. Status: ${response.status} - ${response.message}`}
+        }
         
     }
         
