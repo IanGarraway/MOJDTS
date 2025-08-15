@@ -20,10 +20,7 @@ export const Tasks = () => {
             }
         } catch (e) {
             
-        }
-        
-        ;
-
+        }          
     }
 
     useEffect(() => {
