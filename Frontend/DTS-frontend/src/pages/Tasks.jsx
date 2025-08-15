@@ -7,11 +7,11 @@ import { Modal, Button, Alert } from 'react-bootstrap';
 import TasksService from '../services/Tasks.Services';
 
 export const Tasks = () => {
+    const [errorMessage, setErrorMessage] = useState("");
+    const [show, setShow] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState([]);
-    const [show, setShow] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState("");
 
     const getTasks = async () => {
         const tasksService = new TasksService()

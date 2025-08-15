@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FloatingLabel, Form, Row, Col, CloseButton, Button, FormGroup } from 'react-bootstrap';
+import { Alert, FloatingLabel, Form, Row, Col, Button, FormGroup } from 'react-bootstrap';
 import TasksService from '../services/Tasks.Services';
 import TaskTools from '../utils/Tasks.Tools';
 
@@ -49,6 +49,7 @@ const Task = ({task, setShow, getTasks}) => {
 
     return (
         <div>
+            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col>
