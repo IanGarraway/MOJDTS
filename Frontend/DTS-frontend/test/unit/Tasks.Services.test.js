@@ -133,19 +133,30 @@ describe("Tasks Services Tests", () => {
             //Arrange
             const mockData = tasks[0];
             const mockResponsePayload = { status: 200, data: mockData };
-            const mockDeliveryPayload = {                
+            const mockDeliveryPayload = {
                 "taskStatus": 2,
             }
 
             axios.patch.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.patch(mockData._id, mockDeliveryPayload);            
+            const response = await TasksService.patch(mockData._id, mockDeliveryPayload);
 
             //Assert
             expect(response.status).to.equal(200);
             expect(axios.patch).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockData._id}`, mockDeliveryPayload);
-        })
+        });
+
+        test("Should throw an error if axios fails", async () => {
+            //Arrange
+            const mockData = tasks[0];
+            const mockResponsePayload = { status: 201, data: mockData };
+            const error = new Error('Network Error');
+            axios.patch.mockRejectedValue(error);
+
+            //Assert
+            await expect(TasksService.newTask(mockResponsePayload)).rejects.toThrow('Network Error');
+        });
     })
     
 });
