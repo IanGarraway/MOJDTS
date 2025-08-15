@@ -52,5 +52,21 @@ describe("Tasks.Service Tests", () => {
             //Assert
             expect(reponse).to.deep.equal(expectedPayload);
         });
+
+        test("Should return a payload with only description in it", () => {
+            //Arrange
+            const originalTask = tasks[1];
+            const modifiedTask = structuredClone(originalTask);
+            modifiedTask.taskDescription = "modified description";
+            
+            
+            const expectedPayload = { "taskDescription": "modified description" };
+
+            //Act
+            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+
+            //Assert
+            expect(reponse).to.deep.equal(expectedPayload);
+        })
     });
 })

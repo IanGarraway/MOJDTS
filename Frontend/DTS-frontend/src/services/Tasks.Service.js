@@ -2,7 +2,7 @@
 export default class TaskService {
 
     static patchPayload(originalTask, updatedTask) {
-        const fieldsToCheck = ["taskTitle", "taskDueDate", "taskStatus"];
+        const fieldsToCheck = ["taskTitle", "taskDescription", "taskDueDate", "taskStatus"];
         const patchData = {};
 
         fieldsToCheck.forEach(field => {
