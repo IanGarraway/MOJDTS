@@ -35,6 +35,22 @@ describe("Tasks.Service Tests", () => {
 
             //Assert
             expect(reponse).to.deep.equal(expectedPayload);
-        })
+        });
+
+        test("Should return a payload with only date time in it", () => {
+            //Arrange
+            const originalTask = tasks[1];
+            const modifiedTask = structuredClone(originalTask);
+            modifiedTask.taskDueDate = "2025-14-08T00:00:00.000Z";
+            
+            
+            const expectedPayload = { "taskDueDate": "2025-14-08T00:00:00.000Z" };
+
+            //Act
+            const reponse = TaskService.patchPayload(originalTask, modifiedTask);
+
+            //Assert
+            expect(reponse).to.deep.equal(expectedPayload);
+        });
     });
 })
