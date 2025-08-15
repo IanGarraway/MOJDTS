@@ -19,7 +19,13 @@ export default class TasksService{
         } catch (e) {
             console.log(e.message);
             return { error: `Unable to connect to server. Please try again.` };
-        }
+        }        
+    }
+
+    async newTask(payload) {
+        const response = await this.#API.newTask(payload);
+
+        return response;
         
     }
         

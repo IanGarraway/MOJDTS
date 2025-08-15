@@ -38,19 +38,43 @@ describe("Tests for Tasks.Services", () => {
         });
 
         test("should return an error message if server responds with 500", async () => {
-            // Arrange
+            //Arrange
             const mockAPI = {
                 getAll: vi.fn().mockResolvedValue({ response: { status: 500 }, message: "" }),
             };
             const service = new TasksService(mockAPI);
 
-            // Act
+            //Act
             const response = await service.getAll();
 
-            // Assert
+            //Assert
             expect(response).toHaveProperty("error");
             expect(response.error).toBe("Unable to fetch tasks. Please try again later. ");
             expect(mockAPI.getAll).toHaveBeenCalled();
         });
     });
+
+    describe("Tests for newTask function", () => {
+        test("Should respond with status 200 and the new task", async () => {
+            //Arrange
+            const mockAPI = {
+                newTask: vi.fn().mockResolvedValue({ status: 201 , data: tasks[0] }),
+            };
+            const service = new TasksService(mockAPI);
+
+            const mockPayload = {
+                "taskTitle": tasks[0].taskTitle,
+                "taskDescription": tasks[0].taskDescription,
+                "taskDueDate": tasks[0].taskDueDate,
+                "taskStatus": tasks[0].status
+            };
+
+            //Act
+            const response = await service.newTask(mockPayload);
+
+            //Assert
+            expect(response.status).toEqual(201);
+            expect(response.data).toEqual(tasks[0]);
+        })
+    })
 })
