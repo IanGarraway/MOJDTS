@@ -12,9 +12,13 @@ export default class TasksService{
         try {
             const response = await this.#API.getAll()
 
-            return response.data;
+            if (response.status === 200) {
+                return response.data;
+            }
+            return { error: `Unable to fetch tasks. Please try again later. ${response.message}` };
         } catch (e) {
-            return { error: "Unable to connect to server. Please try again." };
+            console.log(e.message);
+            return { error: `Unable to connect to server. Please try again.` };
         }
         
     }

@@ -36,5 +36,21 @@ describe("Tests for Tasks.Services", () => {
             expect(result).toHaveProperty('error');
             expect(result.error).toBe('Unable to connect to server. Please try again.');
         });
+
+        test("should return an error message if server responds with 500", async () => {
+            // Arrange
+            const mockAPI = {
+                getAll: vi.fn().mockResolvedValue({ response: { status: 500 }, message: "" }),
+            };
+            const service = new TasksService(mockAPI);
+
+            // Act
+            const response = await service.getAll();
+
+            // Assert
+            expect(response).toHaveProperty("error");
+            expect(response.error).toBe("Unable to fetch tasks. Please try again later. ");
+            expect(mockAPI.getAll).toHaveBeenCalled();
+        });
     });
 })
