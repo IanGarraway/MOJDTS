@@ -19,6 +19,22 @@ describe("Tests for Tasks.Services", () => {
             //Assert
             expect(response).toHaveLength(3);
 
-        })
-    })
+        });
+
+        test("Should throw an error when API cannot connect", async () => {
+            //Arrange 
+            const mockAPI = {
+                getAll: vi.fn().mockRejectedValue(new Error("Network Error")),
+            };
+
+            const service = new TasksService(mockAPI);
+
+            //Act 
+            const result = await service.getAll();
+
+            //Assert
+            expect(result).toHaveProperty('error');
+            expect(result.error).toBe('Unable to connect to server. Please try again.');
+        });
+    });
 })

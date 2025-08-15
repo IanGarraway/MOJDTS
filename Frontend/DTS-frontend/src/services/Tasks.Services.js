@@ -9,10 +9,13 @@ export default class TasksService{
     }
 
     async getAll() {
-        const response = await this.#API.getAll()
-        console.log(response);
+        try {
+            const response = await this.#API.getAll()
 
-        return response.data;
+            return response.data;
+        } catch (e) {
+            return { error: "Unable to connect to server. Please try again." };
+        }
         
     }
         
