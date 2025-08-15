@@ -22,4 +22,11 @@ export default class TasksService{
 
             return response;
     }
+
+    static async newTask(taskData) {
+        const response = await axios.post(`${apiURL}/tasks`,
+            taskData
+        );
+        return response;
+    }
 }

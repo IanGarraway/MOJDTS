@@ -7,7 +7,7 @@ import TasksService from '../../src/services/Tasks.Service';
 vi.mock('axios');
 
 describe("Tasks Services Tests", () => {
-    describe("tests of the GET /tasks Route", () => {
+    describe("Tests of the GET /tasks Route", () => {
         beforeEach(() => {
             axios.get.mockReset();
         });
@@ -54,14 +54,13 @@ describe("Tasks Services Tests", () => {
 
     });
 
-    describe("Tests of the GET /tasks/{id} ", () => {
+    describe("Tests of the GET /tasks/{id} route ", () => {
         beforeEach(() => {
             axios.get.mockReset();
         });
 
         test("Should return a single task", async () => {
-            //Arrange
-            console.log(tasks);
+            //Arrange            
             const mockData = tasks[0];
             const mockResponsePayload = { status: 200, data: mockData };
             
@@ -72,14 +71,42 @@ describe("Tasks Services Tests", () => {
 
             //Assert
             expect(response.data).to.equal(mockData);
-            expect(axios.get).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockData._id}`);
+            expect(axios.get).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockData._id}`);          
+            
+        });
+
+        test("throws an error if axios fails", async () => {
+            //Arrange
+            const error = new Error('Network Error');
+            axios.get.mockRejectedValue(error);
 
             //Assert
-
-            
+            await expect(TasksService.get()).rejects.toThrow('Network Error');
         });
     
     });
+
+    describe("Tests for POST /tasks route", () => {
+        test("Should return a task, confirming one is created", async () => {
+            //Arrange
+            const mockData = tasks[0];
+            const mockResponsePayload = { status: 201, data: mockData };
+            const mockDeliveryPayload = {
+                "taskTitle": mockData.taskTitle,
+                "taskDescription": mockData.taskDescription,
+                "taskStatus": mockData.taskStatus,
+                "taskDueDate": mockData.taskDueDate
+            };
+
+            axios.post.mockResolvedValue(mockResponsePayload);
+
+            //Act
+            const response = await TasksService.newTask(mockDeliveryPayload);
+
+            //Assert
+            expect(response.status).to.equal(201);
+        })
+    })
     
 });
 
