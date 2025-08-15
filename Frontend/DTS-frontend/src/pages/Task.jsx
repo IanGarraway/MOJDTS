@@ -28,8 +28,10 @@ const Task = ({task}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // use the state variables to save or update
-        console.log({ title, description, dueDate, status });
+        if (isNewTask) {
+            
+        }
+        
     };    
 
     return (

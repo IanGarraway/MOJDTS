@@ -16,4 +16,14 @@ export default class TaskService {
         return patchData;
     }
 
+    static newTask(taskTitle, taskDescription, taskDueDate, taskStatus) {
+        return {
+            "taskTitle": taskTitle,
+            "taskDescription": taskDescription,
+            "taskDueDate": taskDueDate,
+            "taskStatus": taskStatus
+        }
+        
+    }
+
 }

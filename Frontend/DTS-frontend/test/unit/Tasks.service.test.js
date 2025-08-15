@@ -118,4 +118,28 @@ describe("Tasks.Service Tests", () => {
 
 
     });
+
+    describe("New Task creation tool", () => {
+        test("passing in the 4 items returns a valid object", () => {
+            //Arrange
+            const mockTitle = tasks[0].taskTitle;
+            const mockDescription = tasks[0].taskDescription;
+            const mockDueDate = tasks[0].taskDueDate;
+            const mockStatus = tasks[0].taskStatus;
+
+            const expectedResult = {
+                "taskTitle": mockTitle,
+                "taskDescription": mockDescription,
+                "taskDueDate": mockDueDate,
+                "taskStatus": mockStatus
+            };
+
+            //Act
+            const response = TaskService.newTask(mockTitle, mockDescription, mockDueDate, mockStatus);
+
+            //Assert
+            expect(response).toEqual(expectedResult);
+
+        })
+    })
 })
