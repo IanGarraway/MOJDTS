@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TasksService from '../services/Tasks.Service';
+import TasksAPI from '../services/Tasks.API';
 import TaskTable from '../components/TaskTable';
 import Task from './Task';
 import { Modal, Button } from 'react-bootstrap';
@@ -10,8 +11,18 @@ export const Tasks = () => {
     const [show, setShow] = useState(false);
 
     const getTasks = async () => {
-        const tasksData = await TasksService.getAll();
-        setTasks(tasksData);
+
+        let response;
+        try {
+            response = await TasksAPI.getAll();
+            if (response.status === 200) {                
+                setTasks(response.data);
+            }
+        } catch (e) {
+            
+        }
+        
+        ;
 
     }
 

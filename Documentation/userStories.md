@@ -18,7 +18,7 @@
 #### frontend
 
 - [x] interface screen for creating a task
-- [ ] input validation matching backend rules
+- [x] input validation matching backend rules
 - [x] api call to POST /newtask
 - [ ] confirmation message on successful task creation
 - [ ] user friendly error message if task creation failure
@@ -39,7 +39,7 @@
 - [x] Task list view created
 - [x] API call to GET /getall
 - [x] Display task in a clear readable format
-- [ ] Show "No tasks found" if list is empty
+- [x] Show "No tasks found" if list is empty
 
 ## User story 3 - View task details
 
@@ -79,7 +79,7 @@
 #### frontend
 
 - [x] Task edit form implemented
-- [ ] Client-side validation matches backend rules
+- [x] Client-side validation matches backend rules
 - [x] API call to PATCH /{id}
 - [ ] Show success message when update complete
 - [ ] Show user-friendly error message if validation fails or task not found
