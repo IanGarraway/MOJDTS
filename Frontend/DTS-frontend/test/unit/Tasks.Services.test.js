@@ -79,7 +79,7 @@ describe("Tests for Tasks.Services", () => {
         test("Should respond with status 400 and the error message", async () => {
             //Arrange
             const mockAPI = {
-                newTask: vi.fn().mockResolvedValue({ status: 400 , message: "Bad Request" }),
+                newTask: vi.fn().mockResolvedValue({ status: 400, message: "Bad Request" }),
             };
             const service = new TasksService(mockAPI);
 
@@ -95,7 +95,32 @@ describe("Tests for Tasks.Services", () => {
             expect(response).toHaveProperty("error");
             expect(response.error).toBe(`Unable to create task. Status: 400 - Bad Request`);
             expect(mockAPI.newTask).toHaveBeenCalled();
-        })
+        });
+
+        test("Should throw an error when API cannot connect", async () => {
+            //Arrange 
+            const mockAPI = {
+                newTask: vi.fn().mockRejectedValue(new Error("Network Error")),
+            };
+
+            const service = new TasksService(mockAPI);
+
+            const mockPayload = {
+                "taskTitle": tasks[0].taskTitle,
+                "taskDescription": tasks[0].taskDescription,
+                "taskDueDate": tasks[0].taskDueDate,
+                "taskStatus": tasks[0].status
+            };
+
+            //Act 
+            const result = await service.newTask(mockPayload);
+
+            //Assert
+            expect(result).toHaveProperty('error');
+            expect(result.error).toBe('Unable to connect to server. Please try again.');
+        });
+
+        
 
         
 

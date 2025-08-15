@@ -23,14 +23,18 @@ export default class TasksService{
     }
 
     async newTask(payload) {
-        const response = await this.#API.newTask(payload);
+        try {
+            const response = await this.#API.newTask(payload);
 
-        if (response.status === 201) {
-            return response.data;
-        } else {
-            return {error: `Unable to create task. Status: ${response.status} - ${response.message}`}
+            if (response.status === 201) {
+                return response.data;
+            } else {
+            
+                return { error: `Unable to create task. Status: ${response.status} - ${response.message}` }
+            }
+        } catch (e) {
+            return {error: 'Unable to connect to server. Please try again.'}
         }
-        
     }
         
     
