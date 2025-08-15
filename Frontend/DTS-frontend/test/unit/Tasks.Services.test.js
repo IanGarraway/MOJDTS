@@ -172,13 +172,23 @@ describe("Tasks Services Tests", () => {
             axios.delete.mockResolvedValue(mockResponsePayload);
 
             //Act
-            const response = await TasksService.delete(mockID);            
+            const response = await TasksService.delete(mockID);
 
             //Assert
             expect(response.status).to.equal(204);
             expect(axios.delete).toHaveBeenCalledWith(`http://localhost:3000/tasks/${mockID}`);
 
-        })
+        });
+
+        test("Should throw an error if axios fails", async () => {
+            //Arrange
+            const mockData = tasks[0];            
+            const error = new Error('Network Error');
+            axios.delete.mockRejectedValue(error);
+
+            //Assert
+            await expect(TasksService.delete(mockData._id)).rejects.toThrow('Network Error');
+        });
     })
     
 });

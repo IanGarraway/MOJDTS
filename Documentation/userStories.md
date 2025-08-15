@@ -97,6 +97,6 @@
 #### Frontend
 
 - [x] Delete button implemented with confirmation prompt
-- [ ] API call to DELETE /{id}
+- [x] API call to DELETE /{id}
 - [ ] Remove deleted task from UI without page refresh
 - [ ] Show user friendly error message if deletion fails
