@@ -36,6 +36,12 @@ export default class TasksService{
             return {error: 'Unable to connect to server. Please try again.'}
         }
     }
+
+    async updateTask(id, payload) {
+        const response = await this.#API.patch(id, payload);
+
+        return response;
+    }
         
     
 

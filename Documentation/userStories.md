@@ -21,7 +21,7 @@
 - [x] input validation matching backend rules
 - [x] api call to POST /newtask
 - [ ] confirmation message on successful task creation
-- [ ] user friendly error message if task creation failure
+- [x] user friendly error message if task creation failure
 
 ## User story 2 - View All Tasks
 

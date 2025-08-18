@@ -120,11 +120,30 @@ describe("Tests for Tasks.Services", () => {
             expect(result).toHaveProperty('error');
             expect(result.error).toBe('Unable to connect to server. Please try again.');
         });
+    })
 
+    describe("Tests for the Update function", () => {
+        test("Should respond with 200 on successful task update", async () => {
+            //Arrange
+            const mockAPI = {
+                patch: vi.fn().mockResolvedValue({ status: 200, data: tasks[0] }),
+            };
+            const service = new TasksService(mockAPI);
+
+            const mockId = tasks[0]._id;
+
+            const mockPayload = {
+                "taskTitle": tasks[0].taskTitle,
+                "taskDescription": tasks[0].taskDescription,               
+            };
+
+            //Act
+            const response = await service.updateTask(mockId, mockPayload);
+
+            //Assert
+            expect(response.status).toEqual(200);
+            expect(response.data).toEqual(tasks[0]);
         
-
-        
-
-
+        })
     })
 })

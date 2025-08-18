@@ -31,19 +31,32 @@ const Task = ({task, setShow, getTasks}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isNewTask) {
-            const taskService = new TasksService();
-            const response = await taskService.newTask(TaskTools.newTask(title, description, dueDate, status));
+        const taskService = new TasksService();
+        const response = "";
+        if (isNewTask) {            
+            response = await taskService.newTask(TaskTools.newTask(title, description, dueDate, status));
             if (response.error) {
                 setErrorMessage(response.error);
             } else {
                 getTasks();
                 setShow(false);
-            }
-
-
+            }            
+        } else {
+            const newTask = TaskTools.newTask(title, description, dueDate, status);
+            const fieldsToUpdate = TaskTools.patchPayload(task, newTask);
             
-        }
+            if (fieldsToUpdate > 0) {
+                response = await taskService.updateTask(fieldsToUpdate);
+
+                if (response.error) {
+                    setErrorMessage(response.error);
+                } else {
+                    getTasks();
+                    setShow(false);
+                } 
+            };
+               
+        };
         
     };    
 
