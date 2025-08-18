@@ -38,11 +38,8 @@ export default class TasksService{
     }
 
     async updateTask(id, payload) {
-        try {
-            console.log("Sending patch");
-            const response = await this.#API.patch(id, payload);
-
-            console.log("response: "+response);
+        try {            
+            const response = await this.#API.patch(id, payload);            
 
             if (response.status === 200) {
                 return response;
