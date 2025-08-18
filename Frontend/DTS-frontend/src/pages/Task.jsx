@@ -49,9 +49,22 @@ const Task = ({task, setShow, getTasks}) => {
                 } else {
                     getTasks();
                     setShow(false);
-                } 
+                }
+    };
+    
+    const handleDelete = async (e) => {
         
-    };    
+        e.preventDefault();
+        const taskService = new TasksService();
+        const response = await taskService.deleteTask(task._id);
+        
+        if (response.error) {
+            setErrorMessage(response.error);
+        } else {
+            getTasks();
+            setShow(false);
+        }
+    }
 
     return (
         <div>
@@ -129,7 +142,7 @@ const Task = ({task, setShow, getTasks}) => {
                             hidden={isNewTask}
                         />
 
-                        <Button variant="danger" disabled={!deleteEnabled} hidden={isNewTask}>
+                        <Button variant="danger" disabled={!deleteEnabled} hidden={isNewTask} onClick={handleDelete}>
                             Delete
                         </Button>
                     </Col>

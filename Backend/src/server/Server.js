@@ -26,7 +26,7 @@ export default class Server{
 
         const corsOptions = {
             origin: this.#allowedOrigin, //allow only the react front end to be the origin            
-            methods: ['GET', 'POST', 'PATCH'], //allowed methods
+            methods: ['GET', 'POST', 'PATCH', 'DELETE'], //allowed methods
             allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-access-token'], //allowed headers
         };
 

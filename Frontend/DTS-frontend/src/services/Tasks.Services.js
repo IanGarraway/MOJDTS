@@ -54,7 +54,8 @@ export default class TasksService{
 
     async deleteTask(_id) {
         try{
-        const response = await this.#API.delete(_id);
+            const response = await this.#API.delete(_id);
+            console.log(response);
 
         if (response.status === 204) {
             return response;
