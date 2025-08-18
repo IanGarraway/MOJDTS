@@ -98,5 +98,5 @@
 
 - [x] Delete button implemented with confirmation prompt
 - [x] API call to DELETE /{id}
-- [ ] Remove deleted task from UI without page refresh
-- [ ] Show user friendly error message if deletion fails
+- [x] Remove deleted task from UI without page refresh
+- [x] Show user friendly error message if deletion fails

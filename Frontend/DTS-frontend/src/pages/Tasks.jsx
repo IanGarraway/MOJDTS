@@ -34,8 +34,10 @@ export const Tasks = () => {
 
     return (
         <div>
-            <Button variant="outline-primary" onClick={newTaskClick} >New Task</Button>
-            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+            <div className="newTaskButtonWrapper">
+                <Button variant="outline-primary" onClick={newTaskClick} >New Task</Button>
+                {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+            </div>
             <TaskTable tasks={tasks} setTask={setTask} setShow={setShow} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton />
