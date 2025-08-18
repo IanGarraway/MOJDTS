@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
 import { TaskLine } from "./TaskLine";
 
-const TaskTable = ({ tasks, setTask, setShow }) => {
+const TaskTable = ({ tasks, setTask, setShow, newTaskCreated }) => {
     const containerRef = useRef(null);
 
     useEffect(() => {
         // Scroll to bottom whenever tasks change
-        if (containerRef.current) {
-            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        if (newTaskCreated) {
+            if (containerRef.current) {
+                containerRef.current.scrollTop = containerRef.current.scrollHeight;
+            }
         }
-    }, [tasks]);
+    }, [tasks, newTaskCreated]);
 
     
     if (!Array.isArray(tasks) || tasks.length === 0) { return (<h2>No tasks found</h2>); }

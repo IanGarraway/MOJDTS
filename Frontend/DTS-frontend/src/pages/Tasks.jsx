@@ -10,8 +10,10 @@ export const Tasks = () => {
     const [show, setShow] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState([]);
+    const [newTaskCreated, setNewTaskCreated] = useState(false);
 
-    const getTasks = async () => {
+
+    const getTasks = async (isNew = false) => {
         const tasksService = new TasksService()
                   
         const response = await tasksService.getAll();
@@ -19,6 +21,7 @@ export const Tasks = () => {
             setErrorMessage(response.error);           
         }else {
             setTasks(response);
+            if(newTaskCreated!=isNew){setNewTaskCreated(isNew)}
         }        
     }
 
@@ -38,7 +41,7 @@ export const Tasks = () => {
                 <Button variant="outline-primary" onClick={newTaskClick} >New Task</Button>
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </div>
-            <TaskTable tasks={tasks} setTask={setTask} setShow={setShow} />
+            <TaskTable tasks={tasks} setTask={setTask} setShow={setShow} newTaskCreated={newTaskCreated} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton />
                 <Modal.Body>
