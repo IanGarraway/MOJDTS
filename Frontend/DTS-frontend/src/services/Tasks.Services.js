@@ -17,7 +17,7 @@ export default class TasksService{
             }
             return { error: `Unable to fetch tasks. Please try again later. ${response.message}` };
         } catch (e) {
-            console.log(e.message);
+            console.log("error: "+ e.message);
             return { error: `Unable to connect to server. Please try again.` };
         }        
     }
@@ -39,7 +39,10 @@ export default class TasksService{
 
     async updateTask(id, payload) {
         try {
+            console.log("Sending patch");
             const response = await this.#API.patch(id, payload);
+
+            console.log("response: "+response);
 
             if (response.status === 200) {
                 return response;

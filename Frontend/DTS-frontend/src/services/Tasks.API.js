@@ -10,7 +10,7 @@ export default class TasksAPI{
             const response = await axios.get(`${apiURL}/tasks`);
             return response;
         } catch (e) {
-            console.log(e.message);
+            console.log("error: " +e.message);
             throw e;
         }
     }

@@ -9,9 +9,7 @@ export default class TaskTools {
             if (updatedTask[field] !== originalTask[field]) {                
                 patchData[field] = updatedTask[field];
             }
-        });
-
-        console.log(patchData);
+        });        
 
         return patchData;
     }
