@@ -16,6 +16,12 @@ export const TaskLine = ({ task, setTask, setShow }) => {
         hour12: true,
     });
 
+    let dateColour = "#555"
+
+    if (new Date(task.taskDueDate) < new Date()) {
+        dateColour = "#a30d0dff";
+    }
+
     const onTaskClick = () => {
         setTask(task);
         setShow(true);
@@ -33,7 +39,7 @@ export const TaskLine = ({ task, setTask, setShow }) => {
                         <div>
                         <Badge bg={statusBadgeStyle}>{statusText}</Badge>
                         </div>
-                        <div style={{ fontStyle: "italic", color: "#555" }}>
+                        <div style={{ fontStyle: "italic", color: dateColour }}>
                         Due: {dueDate}
                         </div>
                     </div>
