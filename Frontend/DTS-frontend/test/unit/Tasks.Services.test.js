@@ -206,7 +206,7 @@ describe("Tests for Tasks.Services", () => {
             expect(response.status).toEqual(204);
         })
 
-         test("Should respond with a status 404 on a valid id, but no task", async () => {
+        test("Should respond with a status 404 on a valid id, but no task", async () => {
             //Arrange
             const mockAPI = {
                 delete: vi.fn().mockResolvedValue({ status: 404, message: `No task found` }),
@@ -222,5 +222,22 @@ describe("Tests for Tasks.Services", () => {
             expect(response).toHaveProperty('error');
             expect(response.error).toBe(`Unable to delete task. Status: 404 - No task found`);
         })
+        
+        test("Should respond with a status 400 on a invalid", async () => {
+            //Arrange
+            const mockAPI = {
+                delete: vi.fn().mockResolvedValue({ status: 400, message: `invalid ID` }),
+            };
+
+            const service = new TasksService(mockAPI);
+            const mockId = tasks[0]._id;
+
+            //Act
+            const response = await service.deleteTask(mockId);
+
+            //Assert
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe(`Unable to delete task. Status: 400 - invalid ID`);
+        });
     })
 })
