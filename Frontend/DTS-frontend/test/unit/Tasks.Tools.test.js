@@ -41,10 +41,10 @@ describe("Tests for Tasks.Tools ", () => {
             //Arrange
             const originalTask = tasks[1];
             const modifiedTask = structuredClone(originalTask);
-            modifiedTask.taskDueDate = "2025-14-08T00:00:00.000Z";
+            modifiedTask.taskDueDate = "2025-14-08T00:00";
             
             
-            const expectedPayload = { "taskDueDate": "2025-14-08T00:00:00.000Z" };
+            const expectedPayload = { "taskDueDate": "2025-14-08T00:00" };
 
             //Act
             const response = TaskTools.patchPayload(originalTask, modifiedTask);
@@ -82,7 +82,7 @@ describe("Tests for Tasks.Tools ", () => {
             const expectedPayload = {
                 "taskTitle": "Modified Task Title",
                 "taskDescription": "modified description",
-                "taskDueDate": "2025-14-08T00:00:00.000Z"
+                "taskDueDate": "2025-14-08T00:00"
             };
 
             //Act
@@ -105,7 +105,7 @@ describe("Tests for Tasks.Tools ", () => {
             const expectedPayload = {
                 "taskTitle": "Modified Task Title",
                 "taskDescription": "modified description",
-                "taskDueDate": "2025-14-08T00:00:00.000Z",
+                "taskDueDate": "2025-14-08T00:00",
                  "taskStatus": 2
             };
 
