@@ -40,7 +40,12 @@ export default class TasksService{
     async updateTask(id, payload) {
         const response = await this.#API.patch(id, payload);
 
-        return response;
+        if (response.status === 200) {
+            return response;
+        } else {
+            return { error: `Unable to update task. Status: ${response.status} - ${response.message}` }
+        }
+
     }
         
     

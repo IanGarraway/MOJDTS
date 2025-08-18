@@ -30,11 +30,11 @@ describe("Tests for Tasks.Services", () => {
             const service = new TasksService(mockAPI);
 
             //Act 
-            const result = await service.getAll();
+            const response = await service.getAll();
 
             //Assert
-            expect(result).toHaveProperty('error');
-            expect(result.error).toBe('Unable to connect to server. Please try again.');
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe('Unable to connect to server. Please try again.');
         });
 
         test("should return an error message if server responds with 500", async () => {
@@ -114,11 +114,11 @@ describe("Tests for Tasks.Services", () => {
             };
 
             //Act 
-            const result = await service.newTask(mockPayload);
+            const response = await service.newTask(mockPayload);
 
             //Assert
-            expect(result).toHaveProperty('error');
-            expect(result.error).toBe('Unable to connect to server. Please try again.');
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe('Unable to connect to server. Please try again.');
         });
     })
 
@@ -134,7 +134,7 @@ describe("Tests for Tasks.Services", () => {
 
             const mockPayload = {
                 "taskTitle": tasks[0].taskTitle,
-                "taskDescription": tasks[0].taskDescription,               
+                "taskDescription": tasks[0].taskDescription,
             };
 
             //Act
@@ -143,7 +143,28 @@ describe("Tests for Tasks.Services", () => {
             //Assert
             expect(response.status).toEqual(200);
             expect(response.data).toEqual(tasks[0]);
-        
-        })
+        });
+
+        test("Should respond with 404 if valid id but no existing task is sent", async () => {
+            //Arrange
+            const mockAPI = {
+                patch: vi.fn().mockResolvedValue({ status: 404, message: "No task found" }),
+            };
+            const service = new TasksService(mockAPI);
+
+            const mockId = tasks[0]._id;
+
+            const mockPayload = {
+                "taskTitle": tasks[0].taskTitle,
+                "taskDescription": tasks[0].taskDescription,
+            };
+
+            //Act
+            const response = await service.updateTask(mockId, mockPayload);
+
+            //Assert
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe(`Unable to update task. Status: 404 - No task found`);
+        });        
     })
 })
