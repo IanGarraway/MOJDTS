@@ -45,11 +45,11 @@ const Task = ({task, setShow, getTasks}) => {
             }; 
         }
         if (response.error) {
-                    setErrorMessage(response.error);
-                } else {
-                    getTasks();
-                    setShow(false);
-                }
+            setErrorMessage(response.error);
+        } else {
+            getTasks();
+            setShow(false);
+        }
     };
     
     const handleDelete = async (e) => {

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Alert, Button, Modal } from 'react-bootstrap';
 
-import TasksAPI from '../services/Tasks.API';
 import TaskTable from '../components/TaskTable';
 import Task from './Task';
-import { Modal, Button, Alert } from 'react-bootstrap';
 import TasksService from '../services/Tasks.Services';
 
 export const Tasks = () => {
@@ -12,21 +11,15 @@ export const Tasks = () => {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState([]);
 
-
     const getTasks = async () => {
         const tasksService = new TasksService()
-
-        let response;
-        try {            
-            response = await tasksService.getAll();            
-            if (response.error) {
-                setErrorMessage(response.error);                
-            }else {
-                setTasks(response);
-            }
-        } catch (e) {
-            
-        }          
+                  
+        const response = await tasksService.getAll();
+        if (response.error) {
+            setErrorMessage(response.error);           
+        }else {
+            setTasks(response);
+        }        
     }
 
     useEffect(() => {
@@ -38,9 +31,7 @@ export const Tasks = () => {
         setTask(null);
         setShow(true);
     }
-    
-  
-  
+
     return (
         <div>
             <Button variant="outline-primary" onClick={newTaskClick} >New Task</Button>

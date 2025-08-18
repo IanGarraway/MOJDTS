@@ -7,7 +7,7 @@ export const TaskLine = ({ task, setTask, setShow }) => {
     const statusText = TaskStatusTool.statusToText(task.taskStatus);
     const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
-    const dueDate = new Date(task.taskDueDate).toLocaleDateString('en-UK', {
+    const dueDate = new Date(task.taskDueDate).toLocaleDateString('en-GB', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',

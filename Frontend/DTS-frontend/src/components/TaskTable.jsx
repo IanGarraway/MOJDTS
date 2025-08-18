@@ -1,6 +1,5 @@
 import { TaskLine } from "./TaskLine";
 
-
 const TaskTable = ({ tasks, setTask, setShow }) => {
     
     if (!Array.isArray(tasks) || tasks.length === 0) { return (<h2>No tasks found</h2>); }
@@ -8,11 +7,14 @@ const TaskTable = ({ tasks, setTask, setShow }) => {
     return (
         <div className="taskTable">
             {
-                tasks.map(task => (<TaskLine key={task._id}
-                    task={task}
-                    setTask={setTask}
-                    setShow={setShow}
-                />))
+                tasks.map(task => (
+                    <TaskLine
+                        key={task._id}
+                        task={task}
+                        setTask={setTask}
+                        setShow={setShow}
+                    />
+                ))
             }
         </div>
     );
