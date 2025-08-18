@@ -55,7 +55,10 @@ export default class TasksService{
     async deleteTask(_id) {
         const response = await this.#API.delete(_id);
 
-        return response;
+        if (response.status === 204) {
+            return response;
+        }
+        return {error: `Unable to delete task. Status: ${response.status} - ${response.message}`}
     }
         
     
