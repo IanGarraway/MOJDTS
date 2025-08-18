@@ -51,6 +51,12 @@ export default class TasksService{
         }
 
     }
+
+    async deleteTask(_id) {
+        const response = await this.#API.delete(_id);
+
+        return response;
+    }
         
     
 

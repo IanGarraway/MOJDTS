@@ -82,7 +82,7 @@
 - [x] Client-side validation matches backend rules
 - [x] API call to PATCH /{id}
 - [ ] Show success message when update complete
-- [ ] Show user-friendly error message if validation fails or task not found
+- [x] Show user-friendly error message if validation fails or task not found
 
 ## User story 5 - Delete a Task
 "As a caseworker, I want to delete a task, so that I can remove tasks which are no longer relevant."

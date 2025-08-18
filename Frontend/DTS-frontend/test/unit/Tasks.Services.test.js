@@ -188,4 +188,22 @@ describe("Tests for Tasks.Services", () => {
             expect(response.error).toBe('Unable to connect to server. Please try again.');
         });
     })
+
+    describe("Tests for Task Deletion function", () => {
+        test("Should respond with a status 204 on a successful task deletion", async () => {
+            //Arrange
+            const mockAPI = {
+                delete: vi.fn().mockResolvedValue({ status: 204 }),
+            };
+
+            const service = new TasksService(mockAPI);
+            const mockId = tasks[0]._id;
+
+            //Act
+            const response = await service.deleteTask(mockId);
+
+            //Assert
+            expect(response.status).toEqual(204);
+        })
+    })
 })
