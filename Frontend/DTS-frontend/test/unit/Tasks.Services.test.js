@@ -165,6 +165,27 @@ describe("Tests for Tasks.Services", () => {
             //Assert
             expect(response).toHaveProperty('error');
             expect(response.error).toBe(`Unable to update task. Status: 404 - No task found`);
-        });        
+        });
+        
+        test("Should throw an error when API cannot connect", async () => {
+            //Arrange 
+            const mockAPI = {
+                updateTask: vi.fn().mockRejectedValue(new Error("Network Error")),
+            };
+
+            const service = new TasksService(mockAPI);
+
+            const mockPayload = {
+                "taskTitle": tasks[0].taskTitle,
+                "taskDescription": tasks[0].taskDescription,                
+            };
+
+            //Act 
+            const response = await service.updateTask(mockPayload);
+
+            //Assert
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe('Unable to connect to server. Please try again.');
+        });
     })
 })

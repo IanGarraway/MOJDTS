@@ -38,12 +38,16 @@ export default class TasksService{
     }
 
     async updateTask(id, payload) {
-        const response = await this.#API.patch(id, payload);
+        try {
+            const response = await this.#API.patch(id, payload);
 
-        if (response.status === 200) {
-            return response;
-        } else {
-            return { error: `Unable to update task. Status: ${response.status} - ${response.message}` }
+            if (response.status === 200) {
+                return response;
+            } else {
+                return { error: `Unable to update task. Status: ${response.status} - ${response.message}` }
+            }
+        } catch (e) {
+            return {error: 'Unable to connect to server. Please try again.'}
         }
 
     }
