@@ -239,5 +239,23 @@ describe("Tests for Tasks.Services", () => {
             expect(response).toHaveProperty('error');
             expect(response.error).toBe(`Unable to delete task. Status: 400 - invalid ID`);
         });
+
+         test("Should throw an error when API cannot connect", async () => {
+            //Arrange 
+            const mockAPI = {
+                delete: vi.fn().mockRejectedValue(new Error("Network Error")),
+            };
+
+            const service = new TasksService(mockAPI);
+
+             const mockId = tasks[0]._id;
+
+            //Act 
+            const response = await service.deleteTask(mockId);
+
+            //Assert
+            expect(response).toHaveProperty('error');
+            expect(response.error).toBe('Unable to connect to server. Please try again.');
+        });
     })
 })

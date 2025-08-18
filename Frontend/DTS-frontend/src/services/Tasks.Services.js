@@ -53,12 +53,16 @@ export default class TasksService{
     }
 
     async deleteTask(_id) {
+        try{
         const response = await this.#API.delete(_id);
 
         if (response.status === 204) {
             return response;
         }
-        return {error: `Unable to delete task. Status: ${response.status} - ${response.message}`}
+            return { error: `Unable to delete task. Status: ${response.status} - ${response.message}` };
+             } catch (e) {
+            return { error: 'Unable to connect to server. Please try again.' };
+        }
     }
         
     
