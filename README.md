@@ -43,7 +43,7 @@ This project uses three environments: production (.env), development (.env.dev),
 
 .env:
 
-```env
+```dotenv
 ALLOWED_ORIGIN=http://localhost:5173
 PORT=4001
 HOST=127.0.0.1
@@ -52,7 +52,7 @@ DB_URI=mongodb://localhost:27017/dtsTask
 
 .env.dev:
 
-```.dev
+```dotenv
 ALLOWED_ORIGIN=http://localhost:5173
 PORT=4000
 HOST=127.0.0.1
@@ -60,7 +60,8 @@ DB_URI=mongodb://localhost:27017/dtsTask-dev
 ```
 
 .env.test
-```.test
+
+```dotenv
 ALLOWED_ORIGIN=http://localhost:5173
 PORT=3000
 HOST=127.0.0.1
@@ -81,13 +82,13 @@ these should contain
 
 .env.development:
 
-``` .development
+``` dotenv
 VITE_API_URL=http://localhost:4000
 ```
 
 .env.test:
 
-``` .test
+``` dotenv
 VITE_API_URL=http://localhost:3000
 ```
 
@@ -101,7 +102,7 @@ From a terminal in the DTS-frontend folder:
 
 - npm run dev
 
-The app should now be accessible using a browser at address http://localhost:5173/
+The app should now be accessible using a browser at address [http://localhost:5173/](http://localhost:5173/)
 
 ## Developer Documentation
 
@@ -114,4 +115,3 @@ See [docs/api.md](./Docs/api.md)
 ## Testing
 
 See [docs/testing.md](./Docs/testing.md)
-
