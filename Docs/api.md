@@ -1,4 +1,4 @@
-#API Reference - Task Manager WebApp
+# API Reference - Task Manager WebApp
 
 ## Base URL
 
@@ -74,7 +74,7 @@ Returns a single task by its ID.
 
 Creates a new task.
 
-**Request Body**
+#### Request Body
 
 ```json
 {
@@ -114,7 +114,7 @@ Creates a new task.
 
 Updates one or more fields of an existing task.
 
-**Request Body (only the fields to be updated)**
+#### Request Body (only the fields to be updated)
 
 ```json
 {
@@ -190,3 +190,4 @@ Deletes a task by ID.
 - 404 Not Found – Task does not exist
 
 - 500 Internal Server Error – Server error
+  
