@@ -2,8 +2,6 @@
 
 A simple responsive task management webapp built using the MERN (MongoDB, Express, React, Node.JS) tech stack. Users can create, update and delete tasks with due dates and statuses.
 
-
-
 ## Features
 
 - Create new tasks
