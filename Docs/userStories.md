@@ -85,7 +85,10 @@
 - [x] Show user-friendly error message if validation fails or task not found
 
 ## User story 5 - Delete a Task
+
 "As a caseworker, I want to delete a task, so that I can remove tasks which are no longer relevant."
+
+### Definition of Done
 
 #### Backend
 

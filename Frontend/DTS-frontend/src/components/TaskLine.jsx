@@ -18,7 +18,7 @@ export const TaskLine = ({ task, setTask, setShow }) => {
 
     let dateColour = "#555"
 
-    if (new Date(task.taskDueDate) < new Date()) {
+    if (new Date(task.taskDueDate) < new Date()&&task.taskStatus !=3) {
         dateColour = "#a30d0dff";
     }
 
