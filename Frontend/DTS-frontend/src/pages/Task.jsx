@@ -47,8 +47,10 @@ const Task = ({task, setShow, getTasks}) => {
         if (response.error) {
             setErrorMessage(response.error);
         } else {
-            getTasks(isNewTask);
-            setShow(false);
+            if (response) {
+                getTasks(isNewTask);
+                setShow(false);
+            }
         }
     };
     

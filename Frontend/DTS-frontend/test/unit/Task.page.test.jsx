@@ -5,11 +5,13 @@ import {tasks} from '../data/data.json';
 import { beforeEach, expect, vi } from 'vitest';
 
 const mockNewTask = vi.fn().mockResolvedValue({});
+const mockUpdateTask = vi.fn().mockResolvedValue({});
     
     vi.mock('../../src/services/Tasks.Services', () => {
         return {
             default: vi.fn().mockImplementation(() => ({
                 newTask: mockNewTask,
+                updateTask: mockUpdateTask,
             })),
         }
     });
@@ -103,4 +105,32 @@ describe('Task Component', () => {
         expect(deleteButton).toBeDisabled();
         expect(saveButton).toBeEnabled(); //confirm the save button is enabled.
     })
+
+    test("task page doesn't respond to save attempts when no data is changed", async () => {
+
+        //Arrange
+        const mockTask = tasks[0];
+
+        const expectedDescription = mockTask.taskDescription;
+        const expectedDate = mockTask.taskDueDate.slice(0, 16);
+        const expectedStatus = mockTask.taskStatus;
+        const expectedTitle = mockTask.taskTitle;
+
+        //Act
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const saveButton = screen.queryByRole('button', { name: /save/i })
+
+        await waitFor(()=>fireEvent.click(saveButton));
+
+        //Assert
+        
+
+        expect(mockUpdateTask).not.toHaveBeenCalled();
+        expect(mockGetTasks).not.toHaveBeenCalled();
+        expect(mockSetShow).not.toHaveBeenCalled();        
+        
+
+        
+    });
 })
