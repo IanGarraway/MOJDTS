@@ -100,7 +100,21 @@ describe("Tests of Task Routes with no database", () => {
             expect(response.status).to.equal(500);
             expect(response.body.message).to.equal("DB not available");
         });
-    });   
+    });
+    describe("Patch requests to /tasks/", () => {
+        it("Should return with a status 500", async () => {
+            //Arrange
+            const mockId = "689c7ba78b0e0c4fe62e2ffa"
+            const newData = { "taskStatus": 2 };
+
+            //Act
+            const response = await request.patch(`/tasks/${mockId}`).send(newData);
+                
+            //Assert
+            expect(response.status).to.equal(500);
+            expect(response.body.message).to.equal("DB not available");
+        });
+    })
 
 
 })

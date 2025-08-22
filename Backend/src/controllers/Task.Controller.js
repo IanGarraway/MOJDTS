@@ -48,15 +48,19 @@ export default class TaskController{
     }
 
     patch = async (req, res) => {
-        if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
-            return res.status(400).send({ message: "Invalid task ID format" });
-        }
+        try {
+            if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
+                return res.status(400).send({ message: "Invalid task ID format" });
+            }
 
-        const updatedTask = await this.#taskService.patch(req);
+            const updatedTask = await this.#taskService.patch(req);
         
-        if (updatedTask == null) { return res.status(404).send({ message: "No task found" }); }        
+            if (updatedTask == null) { return res.status(404).send({ message: "No task found" }); }
         
-        return res.status(200).send(updatedTask);
+            return res.status(200).send(updatedTask);
+        } catch (e) {
+            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
+        }
     }
 
     delete = async (req, res) => {
