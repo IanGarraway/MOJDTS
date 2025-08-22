@@ -6,8 +6,9 @@
   "scripts": {
     "prod": "NODE_ENV=prod nodemon src/index.js",
     "start": "NODE_ENV=dev nodemon src/index.js",
-    "test": "cross-env NODE_ENV=test mocha --timeout 10000 --exit --recursive",
-    "test-win": "cross-env NODE_ENV=test mocha 'test/**/*.test.js' --timeout 10000 --exit --recursive ",
+    "test:db": "cross-env NODE_ENV=test mocha test/integration/Task.db.test.js --timeout 10000 --exit",
+    "test:no-db": "cross-env NODE_ENV=test mocha test/integration/Task.no-db.test.js --timeout 10000 --exit",
+    "test": "npm run test:db && npm run test:no-db",    
     "coverage": "cross-env NODE_ENV=test c8 -r html npm test",
     "coverage-win": "cross-env NODE_ENV=test c8 -r html npm run test-win"
   },

@@ -16,7 +16,7 @@ export default class TaskController{
             if (!errors.isEmpty()) {
                 return res.status(400).json({ message: 'Task validation failed', errors: errors.array() });
             }
-            const newTask = this.#taskService.newTask(req);         
+            const newTask = await this.#taskService.newTask(req);            
 
             return res.status(201).send({ message: "Task was registered successfully", newTask });
         } catch (e) {

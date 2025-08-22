@@ -15,6 +15,7 @@ import TaskService from "../../src/services/Task.Service.js";
 import Task from "../../src/models/Task.model.js";
 
 
+
 describe("Tests of Task Routes", () => {
     let database;
     let testServer;
@@ -58,7 +59,7 @@ describe("Tests of Task Routes", () => {
 
     describe("Create Task Route", () => {        
         describe("Post request to /tasks", () => {
-            it("should repond with Task was registered successfully", async () => {
+            it("should respond with Task was registered successfully", async () => {
                 //arrange
                 let testTask = {
                     "taskTitle": "Test Task",
@@ -361,3 +362,5 @@ describe("Tests of Task Routes", () => {
         })
     })
 })
+
+
