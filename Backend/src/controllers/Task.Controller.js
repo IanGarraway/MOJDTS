@@ -64,15 +64,18 @@ export default class TaskController{
     }
 
     delete = async (req, res) => {
+        try {
+            if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
+                return res.status(400).send({ message: "Invalid task ID format" });
+            }
         
-        if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
-            return res.status(400).send({ message: "Invalid task ID format" });
-        }
-        
-        const result = await this.#taskService.delete(req);
+            const result = await this.#taskService.delete(req);
 
-        if (result.deletedCount === 0) { return res.status(404).send(); }        
-        return res.status(204).send();
+            if (result.deletedCount === 0) { return res.status(404).send(); }
+            return res.status(204).send();
+        }catch (e) {
+            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
+        }
         
     }
 }

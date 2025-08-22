@@ -101,10 +101,11 @@ describe("Tests of Task Routes with no database", () => {
             expect(response.body.message).to.equal("DB not available");
         });
     });
+
     describe("Patch requests to /tasks/", () => {
         it("Should return with a status 500", async () => {
             //Arrange
-            const mockId = "689c7ba78b0e0c4fe62e2ffa"
+            const mockId = "689c7ba78b0e0c4fe62e2ffa";
             const newData = { "taskStatus": 2 };
 
             //Act
@@ -115,6 +116,17 @@ describe("Tests of Task Routes with no database", () => {
             expect(response.body.message).to.equal("DB not available");
         });
     })
+    describe("DELETE requests to /tasks", () => {
+        it("Should delete a task when the id is sent", async () => {
+            //Arrange
+            const mockId = "689c7ba78b0e0c4fe62e2ffa";
 
+            //Act
+            const response = await request.delete(`/tasks/${mockId}`)
 
+            //Assert
+            expect(response.status).to.equal(500);
+            expect(response.body.message).to.equal("DB not available");
+        });
+    })
 })
