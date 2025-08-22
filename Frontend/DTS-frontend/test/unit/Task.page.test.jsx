@@ -150,6 +150,9 @@ describe('Task Component', () => {
         const descriptionBox = screen.getByLabelText(/Task Description/i);
         await userEvent.type(descriptionBox, 'The Task description has been changed');
 
+        const statusBox = screen.getByLabelText(/Task Status/i);
+        await userEvent.selectOptions(statusBox, '3');
+
         const saveButton = screen.queryByRole('button', { name: /save/i })
 
         await waitFor(()=>userEvent.click(saveButton));
@@ -259,9 +262,34 @@ describe('Task Component', () => {
 
         expect(mockDeleteTask).toHaveBeenCalled();
         expect(mockGetTasks).toHaveBeenCalled();
-        expect(mockSetShow).toHaveBeenCalledWith(false); 
-        
+        expect(mockSetShow).toHaveBeenCalledWith(false);         
     });
+
+    test("clicking the enabled delete button will display an error", async () => {
+        //Arrange
+        const mockTask = tasks[0];   
+        
+        mockDeleteTask.mockResolvedValue({ error: "Failed to update task" });
+        
+        //Act
+
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const deleteButton = screen.queryByRole('button', { name: /delete/i });      
+
+        const deleteSwitch = screen.getByTestId('delete-switch');
+        await userEvent.click(deleteSwitch);
+        expect(deleteButton).toBeEnabled();
+
+        await userEvent.click(deleteButton);
+
+        expect(screen.getByText(/Failed to update task/i)).toBeInTheDocument();
+        expect(mockDeleteTask).toHaveBeenCalled();
+        expect(mockGetTasks).not.toHaveBeenCalled();
+        expect(mockSetShow).not.toHaveBeenCalled();        
+    });
+
+
 
 
     
