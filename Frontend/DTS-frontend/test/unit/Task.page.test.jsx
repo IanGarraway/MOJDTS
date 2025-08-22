@@ -1,4 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Task from '../../src/pages/Task';
 import {tasks} from '../data/data.json';
@@ -123,14 +124,38 @@ describe('Task Component', () => {
 
         await waitFor(()=>fireEvent.click(saveButton));
 
-        //Assert
-        
+        //Assert        
 
         expect(mockUpdateTask).not.toHaveBeenCalled();
         expect(mockGetTasks).not.toHaveBeenCalled();
-        expect(mockSetShow).not.toHaveBeenCalled();        
-        
+        expect(mockSetShow).not.toHaveBeenCalled(); 
+    });
+
+    test("task page does respond to save attempts when data is changed", async () => {
+        //Arrange
+        const mockTask = tasks[0];
+
+        const expectedDescription = mockTask.taskDescription;
+        const expectedDate = mockTask.taskDueDate.slice(0, 16);
+        const expectedStatus = mockTask.taskStatus;
+        const expectedTitle = mockTask.taskTitle;
 
         
+
+        //Act
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const descriptionBox = screen.getByLabelText(/Task Description/i);
+        await userEvent.type(descriptionBox, 'The Task description has been changed');
+
+        const saveButton = screen.queryByRole('button', { name: /save/i })
+
+        await waitFor(()=>userEvent.click(saveButton));
+
+        //Assert        
+
+        expect(mockUpdateTask).toHaveBeenCalled();
+        expect(mockGetTasks).toHaveBeenCalledWith(false);
+        expect(mockSetShow).toHaveBeenCalledWith(false); 
     });
 })
