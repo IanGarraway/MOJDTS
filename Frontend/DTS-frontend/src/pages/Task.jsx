@@ -139,6 +139,7 @@ const Task = ({task, setShow, getTasks}) => {
                         <Form.Check
                             type="switch"
                             id="confirm-delete-switch"
+                            data-testid="delete-switch"
                             checked={deleteEnabled}
                             onChange={(e) => setDeleteEnabled(e.target.checked)}
                             hidden={isNewTask}

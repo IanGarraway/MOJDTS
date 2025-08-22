@@ -199,5 +199,24 @@ describe('Task Component', () => {
         expect(mockGetTasks).not.toHaveBeenCalled();
     });
 
+    test("clicking the switch enables the delete button", async () => {
+        //Arrange
+        const mockTask = tasks[0];                      
+        
+        //Act
+
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const deleteButton = screen.queryByRole('button', { name: /delete/i });
+        expect(deleteButton).toBeInTheDocument();
+        expect(deleteButton).toBeDisabled();
+
+        const deleteSwitch = screen.getByTestId('delete-switch');
+        await userEvent.click(deleteSwitch);
+
+        expect(deleteButton).toBeEnabled();
+        
+    });
+
     
 })
