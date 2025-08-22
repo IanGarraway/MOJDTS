@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 import Task from '../../src/pages/Task';
-//import TasksService from '../../src/services/Tasks.Services';
+import {tasks} from '../data/data.json';
 import { beforeEach, expect, vi } from 'vitest';
 
 const mockNewTask = vi.fn().mockResolvedValue({});
@@ -24,8 +24,10 @@ describe('Task Component', () => {
     });
 
     test('renders form field with default values for new task', () => {
+        //Act
         render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
 
+        //Assert
         expect(screen.getByLabelText(/Task Title/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Task Description/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Due Date & Time/i)).toBeInTheDocument();
@@ -36,6 +38,7 @@ describe('Task Component', () => {
     });
 
     test('allows submitting a new task', async () => {
+        //Act
         render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
 
         fireEvent.change(screen.getByLabelText(/Task Title/i), { target: { value: 'Test Task' } });
@@ -46,10 +49,58 @@ describe('Task Component', () => {
 
         fireEvent.click(saveButton);
 
+        //Assert
         await waitFor(() => {
             expect(mockNewTask).toHaveBeenCalled();
             expect(mockGetTasks).toHaveBeenCalledWith(true);
             expect(mockSetShow).toHaveBeenCalledWith(false);
         });
+    });
+
+    test('default due date is set to tomorrow', () => {
+        //Arrange
+        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const dueDateInput = screen.getByLabelText(/Due Date & Time/i);
+        
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(12, 0, 0, 0);
+
+        const expectedValue = tomorrow.toISOString().slice(0, 16);
+
+        //Assert
+        expect(dueDateInput.value).toBe(expectedValue);
+    })
+
+    test('task pages displays a task when one is passed in', () => {
+        //Arrange
+        const mockTask = tasks[0];
+
+        const expectedDescription = mockTask.taskDescription;
+        const expectedDate = mockTask.taskDueDate.slice(0, 16);
+        const expectedStatus = mockTask.taskStatus;
+        const expectedTitle = mockTask.taskTitle;
+
+        //Act
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const descriptionBox = screen.getByLabelText(/Task Description/i);
+        const dueDateBox = screen.getByLabelText(/Due Date & Time/i);
+        const statusBox = screen.getByLabelText(/Task Status/i);
+        const titleBox = screen.getByLabelText(/Task Title/i);
+
+        const deleteButton = screen.queryByRole('button', { name: /delete/i });
+        const saveButton = screen.queryByRole('button', { name: /save/i })
+
+        //Assert
+        expect(descriptionBox).toHaveValue(expectedDescription);
+        expect(dueDateBox).toHaveValue(expectedDate);
+        expect(statusBox).toHaveValue(expectedStatus.toString());
+        expect(titleBox).toHaveValue(expectedTitle);
+
+        expect(deleteButton).toBeInTheDocument(); //confirm the delete button is visible, but disabled
+        expect(deleteButton).toBeDisabled();
+        expect(saveButton).toBeEnabled(); //confirm the save button is enabled.
     })
 })
