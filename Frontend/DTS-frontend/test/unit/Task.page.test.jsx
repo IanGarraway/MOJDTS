@@ -7,12 +7,14 @@ import { beforeEach, expect, vi } from 'vitest';
 
 const mockNewTask = vi.fn().mockResolvedValue({});
 const mockUpdateTask = vi.fn().mockResolvedValue({});
+const mockDeleteTask = vi.fn().mockResolvedValue({});
     
     vi.mock('../../src/services/Tasks.Services', () => {
         return {
             default: vi.fn().mockImplementation(() => ({
                 newTask: mockNewTask,
                 updateTask: mockUpdateTask,
+                deleteTask: mockDeleteTask,
             })),
         }
     });
@@ -236,6 +238,28 @@ describe('Task Component', () => {
         expect(deleteButton).toBeEnabled();
         await userEvent.click(deleteSwitch);
         expect(deleteButton).toBeDisabled();
+        
+    });
+
+    test("clicking the enabled delete button calls the delete function", async () => {
+        //Arrange
+        const mockTask = tasks[0];                      
+        
+        //Act
+
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const deleteButton = screen.queryByRole('button', { name: /delete/i });      
+
+        const deleteSwitch = screen.getByTestId('delete-switch');
+        await userEvent.click(deleteSwitch);
+        expect(deleteButton).toBeEnabled();
+
+        await userEvent.click(deleteButton);
+
+        expect(mockDeleteTask).toHaveBeenCalled();
+        expect(mockGetTasks).toHaveBeenCalled();
+        expect(mockSetShow).toHaveBeenCalledWith(false); 
         
     });
 
