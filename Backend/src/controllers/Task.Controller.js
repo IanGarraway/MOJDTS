@@ -19,25 +19,32 @@ export default class TaskController{
             const newTask = await this.#taskService.newTask(req);            
 
             return res.status(201).send({ message: "Task was registered successfully", newTask });
-        } catch (e) {
-            console.log("New task creation error -->", e);
-            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });                       
+        } catch (e) {            
+            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
         }
     }
 
-    getAll = async (req, res) => {                
-        const taskData = await this.#taskService.getAll();
+    getAll = async (req, res) => {     
+        try {
+            const taskData = await this.#taskService.getAll();
         
-        return res.status(200).send(taskData);
+            return res.status(200).send(taskData);
+        } catch (e) {            
+            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
+        }
     }
 
     get = async (req, res) => { 
-        if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
-            return res.status(400).send({ message: "Invalid task ID format" });
+        try {
+            if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
+                return res.status(400).send({ message: "Invalid task ID format" });
+            }
+            const taskData = await this.#taskService.get(req.params._id);
+            if (taskData == null) { return res.status(404).send({ message: "No task found" }); }
+            return res.status(200).send(taskData);
+        } catch (e) {
+            return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
         }
-        const taskData = await this.#taskService.get(req.params._id); 
-        if (taskData == null) { return res.status(404).send({ message: "No task found" }); }        
-        return res.status(200).send(taskData);
     }
 
     patch = async (req, res) => {

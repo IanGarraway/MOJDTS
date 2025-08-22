@@ -39,7 +39,7 @@ describe("Tests of Task Routes with no database", () => {
 
         const taskController = new TaskController(taskService);
 
-        const taskRoutes = new TaskRoutes(ORIGIN);
+        const taskRoutes = new TaskRoutes(ORIGIN, taskController);
 
         mongoose.set("bufferCommands", false);
         await mongoose.disconnect();        
@@ -54,26 +54,53 @@ describe("Tests of Task Routes with no database", () => {
         await testServer.close();
     })
 
-    describe("Create Task Route", () => {
-        describe("Post request to /tasks", () => {
-            it("should respond with 500 database error", async () => {
-                //arrange
-                let testTask = {
-                    "taskTitle": "Test Task",
-                    "taskDescription": "Test Task",
-                    "taskStatus": 1,
-                    "taskDueDate": "2025-12-08T00:00:00.000Z"
-                }
+    
+    describe("Post request to /tasks", () => {
+        it("should respond with 500 database error", async () => {
+            //arrange
+            let testTask = {
+                "taskTitle": "Test Task",
+                "taskDescription": "Test Task",
+                "taskStatus": 1,
+                "taskDueDate": "2025-12-08T00:00:00.000Z"
+            }
 
-                //Act
-                const response = await request.post("/tasks").send(testTask);
+            //Act
+            const response = await request.post("/tasks").send(testTask);
 
-                //Assert
+            //Assert
                 
-                expect(response.status).to.equal(500);
-            })
+            expect(response.status).to.equal(500);
+            expect(response.body.message).to.equal("DB not available");
         })
-    })
+    });
+    
+    describe("Get requests to /tasks/", () => {
+        it("should respond with a status 500", async () => {
+            //Arrange                
+
+            //act
+            const response = await request.get("/tasks");
+
+            //assert
+            expect(response.status).to.equal(500);
+            expect(response.body.message).to.equal("DB not available");
+        })
+    });
+
+    describe("Get requests to /tasks/{id}", () => {
+        it("Should return with a status 500", async () => {
+            //arrange            
+            const taskId = "689c7ba78b0e0c4fe62e2ffa";
+
+            //Act
+            const response = await request.get(`/tasks/${taskId}`);
+
+            //Assert
+            expect(response.status).to.equal(500);
+            expect(response.body.message).to.equal("DB not available");
+        });
+    });   
 
 
 })
