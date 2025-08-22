@@ -158,4 +158,46 @@ describe('Task Component', () => {
         expect(mockGetTasks).toHaveBeenCalledWith(false);
         expect(mockSetShow).toHaveBeenCalledWith(false); 
     });
+
+    test("shows error message when newTask fails", async () => {
+        //Arrange
+        mockNewTask.mockResolvedValue({ error: "Failed to create task" });
+
+        //Act
+        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        //Assert
+        const titleInput = screen.getByLabelText(/Task Title/i);
+        await userEvent.type(titleInput, "Some Task");
+
+        const saveButton = screen.getByRole("button", { name: /save/i });
+        await userEvent.click(saveButton);
+
+        expect(screen.getByText(/Failed to create task/i)).toBeInTheDocument();
+        expect(mockSetShow).not.toHaveBeenCalled();
+        expect(mockGetTasks).not.toHaveBeenCalled();
+    });
+
+    test("shows error message when updateTask fails", async () => {
+        //Arrange
+        const mockTask = tasks[0];              
+
+        mockUpdateTask.mockResolvedValue({ error: "Failed to update task" });
+        
+        //Act
+
+        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+
+        const titleInput = screen.getByLabelText(/Task Title/i);
+        await userEvent.type(titleInput, "Some Task");
+
+        const saveButton = screen.getByRole("button", { name: /save/i });
+        await userEvent.click(saveButton);
+
+        expect(screen.getByText(/Failed to update task/i)).toBeInTheDocument();
+        expect(mockSetShow).not.toHaveBeenCalled();
+        expect(mockGetTasks).not.toHaveBeenCalled();
+    });
+
+    
 })
