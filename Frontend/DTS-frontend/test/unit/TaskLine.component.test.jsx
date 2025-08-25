@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, expect, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 
 import { tasks } from '../data/data.json';
 
@@ -10,6 +11,10 @@ const mockSetShow = vi.fn().mockResolvedValue({});
 
 
 describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
+    
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
     
     test('Test that the TaskLine component displays a task', () => {
         //Arrange
@@ -102,6 +107,75 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         //Assert
         expect(dueDateElement).toHaveStyle({ color: "rgb(163, 13, 13)" });
     });
+
+    test('Test that a completed task, with a due date in the past is displayed in grey', () => {
+        //Arrange
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const mockTask = { ...tasks[0], taskDueDate: yesterday.toISOString() }
+        
+
+        const expectedDate = yesterday.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        });
+        
+        //Act
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+
+        const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
+
+        //Assert
+        expect(dueDateElement).toHaveStyle({ color: "rgb(85, 85, 85)" });
+    });
+
+    test('Test that a task, with a due date in the future is displayed in grey', () => {
+        //Arrange
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const mockTask = { ...tasks[0], taskDueDate: tomorrow.toISOString() }
+        
+
+        const expectedDate = tomorrow.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        });
+        
+        //Act
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+
+        const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
+
+        //Assert
+        expect(dueDateElement).toHaveStyle({ color: "rgb(85, 85, 85)" });
+    });
+
+    test('Test that clicking on a task will trigger setTask and setShow functions', async () => {
+        //Arrange
+        const mockTask = tasks[0];
+
+        //Act
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+
+        const taskCard = screen.getByText(mockTask.taskTitle);
+
+        await userEvent.click(taskCard);
+
+        //Assert
+        expect(mockSetTask).toHaveBeenCalledWith(mockTask);
+        expect(mockSetShow).toHaveBeenCalledWith(true);
+        
+    })
 
     
 })
