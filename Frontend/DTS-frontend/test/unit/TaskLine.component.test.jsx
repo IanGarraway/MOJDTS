@@ -22,7 +22,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true,
-        }).toString();
+        });
 
         const expectedStatusText = "Completed";
         const expectedStatusBadge = "success";
@@ -39,7 +39,6 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         expect(screen.getByText(`Due: ${expectedDueDate}`)).toBeInTheDocument();
         expect(badge).toBeInTheDocument();
         expect(badge).toHaveClass(`bg-${expectedStatusBadge}`);
-
     });
 
     test('Test that the a status 2 task will display the correct badge', () => {
@@ -58,7 +57,6 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         //Assert        
         expect(badge).toBeInTheDocument();
         expect(badge).toHaveClass(`bg-${expectedStatusBadge}`);
-
     });
 
     test('Test that the a status 2 task will display the correct badge', () => {
@@ -77,7 +75,32 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         //Assert        
         expect(badge).toBeInTheDocument();
         expect(badge).toHaveClass(`bg-${expectedStatusBadge}`);
+    });
 
+    test('Test that a due date in the past is displayed in red', () => {
+        //Arrange
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const mockTask = { ...tasks[1], taskDueDate: yesterday.toISOString() }
+        
+
+        const expectedDate = yesterday.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        });
+        
+        //Act
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+
+        const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
+
+        //Assert
+        expect(dueDateElement).toHaveStyle({ color: "rgb(163, 13, 13)" });
     });
 
     
