@@ -27,7 +27,7 @@ describe('Tests of the TaskTable component', () => {
 
         //Assert
         expect(screen.getByText(/No tasks found/i)).toBeInTheDocument();
-    })
+    });
 
     test('that it will display 3 tasks',async () => {
         //Arrange
@@ -36,9 +36,27 @@ describe('Tests of the TaskTable component', () => {
         //Act
         render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
 
-        const displayTasks = await screen.findAllByText(/Due/i);
+        const displayTasks = await screen.findAllByTestId('task-card');
 
         expect(displayTasks).toHaveLength(3);
+    });
+
+    test('that clicking on a task triggers the correct functions', async () => {
+        //Arrange
+        const mockData = tasks;
+
+        //Act
+        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
+
+        const clickedTask = await screen.findByText(mockData[1].taskTitle);
+
+        await userEvent.click(clickedTask);
+
+        //Assert
+        expect(mockSetTask).toHaveBeenCalledWith(mockData[1]);
+        expect(mockSetShow).toHaveBeenCalledWith(true);
+        expect(mockSetTask).toHaveBeenCalledTimes(1);
+        expect(mockSetShow).toHaveBeenCalledTimes(1);
     })
 
 

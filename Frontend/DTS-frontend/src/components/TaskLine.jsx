@@ -29,7 +29,7 @@ export const TaskLine = ({ task, setTask, setShow }) => {
     
     
     return (
-        <div className='taskCard'>
+        <div className='taskCard' data-testid="task-card">
             <Card bg={'light'} border={'dark'} text={'dark'} onClick={onTaskClick}>
                 <Card.Body>
                     <Card.Title>{task.taskTitle}</Card.Title>
