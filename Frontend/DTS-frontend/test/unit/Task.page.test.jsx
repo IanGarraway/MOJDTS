@@ -1,9 +1,9 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, expect, vi } from 'vitest';
 
 import Task from '../../src/pages/Task';
 import {tasks} from '../data/data.json';
-import { beforeEach, expect, vi } from 'vitest';
 
 const mockNewTask = vi.fn().mockResolvedValue({});
 const mockUpdateTask = vi.fn().mockResolvedValue({});
@@ -19,7 +19,7 @@ const mockDeleteTask = vi.fn().mockResolvedValue({});
         }
     });
 
-describe('Task Component', () => {    
+describe('Task Page Tests', () => {    
 
     const mockGetTasks = vi.fn();
     const mockSetShow = vi.fn();

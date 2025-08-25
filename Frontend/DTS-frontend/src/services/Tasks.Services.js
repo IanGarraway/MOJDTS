@@ -16,8 +16,7 @@ export default class TasksService{
                 return response.data;
             }
             return { error: `Unable to fetch tasks. Please try again later. ${response.message}` };
-        } catch (e) {
-            console.log("error: "+ e.message);
+        } catch (e) {            
             return { error: `Unable to connect to server. Please try again.` };
         }        
     }
@@ -54,8 +53,7 @@ export default class TasksService{
 
     async deleteTask(_id) {
         try{
-            const response = await this.#API.delete(_id);
-            console.log(response);
+            const response = await this.#API.delete(_id);            
 
         if (response.status === 204) {
             return response;
