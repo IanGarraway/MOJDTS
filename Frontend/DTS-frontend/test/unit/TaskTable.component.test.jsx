@@ -29,5 +29,17 @@ describe('Tests of the TaskTable component', () => {
         expect(screen.getByText(/No tasks found/i)).toBeInTheDocument();
     })
 
+    test('that it will display 3 tasks',async () => {
+        //Arrange
+        const mockData = tasks;
+
+        //Act
+        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
+
+        const displayTasks = await screen.findAllByText(/Due/i);
+
+        expect(displayTasks).toHaveLength(3);
+    })
+
 
 })
