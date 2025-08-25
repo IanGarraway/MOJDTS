@@ -46,7 +46,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         expect(badge).toHaveClass(`bg-${expectedStatusBadge}`);
     });
 
-    test('Test that the a status 2 task will display the correct badge', () => {
+    test('Test that the a status 1 - in progress task will display the correct badge', () => {
         //Arrange
         const mockTask = tasks[2];
 
@@ -64,7 +64,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         expect(badge).toHaveClass(`bg-${expectedStatusBadge}`);
     });
 
-    test('Test that the a status 2 task will display the correct badge', () => {
+    test('Test that the a status 2 - pending task will display the correct badge', () => {
         //Arrange
         const mockTask = tasks[1];
 
@@ -105,7 +105,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
         //Assert
-        expect(dueDateElement).toHaveStyle({ color: "rgb(163, 13, 13)" });
+        expect(dueDateElement).toHaveStyle({ color: "#a30d0dff" });
     });
 
     test('Test that a completed task, with a due date in the past is displayed in grey', () => {
@@ -131,7 +131,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
         //Assert
-        expect(dueDateElement).toHaveStyle({ color: "rgb(85, 85, 85)" });
+        expect(dueDateElement).toHaveStyle({ color: "#555" });
     });
 
     test('Test that a task, with a due date in the future is displayed in grey', () => {
@@ -157,7 +157,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
         //Assert
-        expect(dueDateElement).toHaveStyle({ color: "rgb(85, 85, 85)" });
+        expect(dueDateElement).toHaveStyle({ color: "#555" });
     });
 
     test('Test that clicking on a task will trigger setTask and setShow functions', async () => {
@@ -173,9 +173,6 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
 
         //Assert
         expect(mockSetTask).toHaveBeenCalledWith(mockTask);
-        expect(mockSetShow).toHaveBeenCalledWith(true);
-        
-    })
-
-    
+        expect(mockSetShow).toHaveBeenCalledWith(true);        
+    })    
 })
