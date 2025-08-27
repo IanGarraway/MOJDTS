@@ -47,6 +47,7 @@ describe('Tasks Page Tests', () => {
         //Assert
 
         expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
 
         const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
         expect(titleInput).toHaveValue('');
@@ -81,6 +82,7 @@ describe('Tasks Page Tests', () => {
         //Assert
 
         expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
 
         const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
         expect(titleInput).toHaveValue('');
