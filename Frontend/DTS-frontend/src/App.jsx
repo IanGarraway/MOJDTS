@@ -13,8 +13,6 @@ function App() {
       <div className='allApp'>
         <Header />
         <Tasks /> 
-        
-
       </div>
     </>
   )

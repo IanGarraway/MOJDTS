@@ -132,13 +132,13 @@ describe('Tasks Page Tests', () => {
         const newTaskButton = screen.getByRole('button', { name: /New Task/i });
         await userEvent.click(newTaskButton);
 
-        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument(); //confirm the save button is there before closing
+        //just to confirm the save button is there before closing
+        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument(); 
 
         const closeButton = screen.getByLabelText(/close/i);
-        //Act
 
-        await userEvent.click(closeButton);
-        
+        //Act
+        await userEvent.click(closeButton);        
 
         //Assert
         expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();        
