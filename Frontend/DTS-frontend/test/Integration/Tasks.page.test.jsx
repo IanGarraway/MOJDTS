@@ -23,7 +23,7 @@ describe('Tasks Page Tests', () => {
 
     test('That the tasks page render No tasks found when an empty array is passed in', async () => {
         //Arrange
-        mockGetAll.mockResolvedValue({});
+        mockGetAll.mockResolvedValue([]);
 
         //Act
         render(<Tasks />);
@@ -31,6 +31,27 @@ describe('Tasks Page Tests', () => {
         //Assert
         expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /New Task/i })).toBeInTheDocument();        
+    })
+
+    test('That clicking the new tasks button will open a blank task screen', async () => {
+        //Arrange
+        mockGetAll.mockResolvedValue([]);
+
+        //Act
+        render(<Tasks />);
+        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
+
+        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+        await userEvent.click(newTaskButton);
+
+        //Assert
+
+        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+
+        const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
+        expect(titleInput).toHaveValue('');
+        const descriptionInput = screen.getByLabelText(/description/i); 
+        expect(descriptionInput).toHaveValue('');        
     })
 
 });
