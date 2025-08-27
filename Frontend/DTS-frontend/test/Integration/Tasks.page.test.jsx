@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, expect, vi } from 'vitest';
 
@@ -89,5 +89,38 @@ describe('Tasks Page Tests', () => {
         const descriptionInput = screen.getByLabelText(/description/i);
         expect(descriptionInput).toHaveValue('');
     });
+
+    test('That clicking a task will open the task screen for that task', async () => {
+        //Arrange
+        const mockData = tasks;
+        mockGetAll.mockResolvedValue(mockData);
+        
+        render(<Tasks />);
+        const clickedTask = await screen.findByText(mockData[1].taskTitle);
+
+        //Act        
+        await userEvent.click(clickedTask);
+
+        //Assert
+        const titleInput = screen.getByLabelText(/title/i);
+        expect(titleInput).toHaveValue(mockData[1].taskTitle);
+
+        const descriptionInput = screen.getByLabelText(/description/i);
+        expect(descriptionInput).toHaveValue(mockData[1].taskDescription);
+
+        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /Delete/i })).toBeInTheDocument();
+    });
+
+    test('That a task service returning an error will display an error message', async () => {
+        //Arrange
+        mockGetAll.mockResolvedValue({ error: `Unable to fetch tasks. Please try again later.` });
+        
+        //Act
+        render(<Tasks />);
+
+        //Assert
+        expect(await screen.findByText(/Unable to fetch tasks. Please try again later./i)).toBeInTheDocument();        
+    })
 
 });
