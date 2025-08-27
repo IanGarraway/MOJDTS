@@ -120,7 +120,28 @@ describe('Tasks Page Tests', () => {
         render(<Tasks />);
 
         //Assert
-        expect(await screen.findByText(/Unable to fetch tasks. Please try again later./i)).toBeInTheDocument();        
-    })
+        expect(await screen.findByText(/Unable to fetch tasks. Please try again later./i)).toBeInTheDocument();
+    });
+
+    test('that closing the Task modal will function correctly', async () => {
+        //Arrange
+        mockGetAll.mockResolvedValue([]);
+
+        render(<Tasks />);
+
+        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+        await userEvent.click(newTaskButton);
+
+        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument(); //confirm the save button is there before closing
+
+        const closeButton = screen.getByLabelText(/close/i);
+        //Act
+
+        await userEvent.click(closeButton);
+        
+
+        //Assert
+        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();        
+    });
 
 });
