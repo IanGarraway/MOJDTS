@@ -50,8 +50,21 @@ describe('Tasks Page Tests', () => {
 
         const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
         expect(titleInput).toHaveValue('');
-        const descriptionInput = screen.getByLabelText(/description/i); 
-        expect(descriptionInput).toHaveValue('');        
+        const descriptionInput = screen.getByLabelText(/description/i);
+        expect(descriptionInput).toHaveValue('');
+    });
+
+    test('that the page renders with 3 tasks when an array of 3 tasks is passed in', async () => {
+        //Arrange
+        mockGetAll.mockResolvedValue(tasks);
+
+        //Act
+        render(<Tasks />);
+
+        const displayTasks = await screen.findAllByTestId('task-card');
+
+        //Assert
+        expect(displayTasks).toHaveLength(3);
     })
 
 });
