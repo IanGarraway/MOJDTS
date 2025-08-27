@@ -14,4 +14,10 @@ describe('Tests of the Header component of the Tasks.jsx page', () => {
         expect(screen.getByText("Task Manager")).toBeInTheDocument();
     });
 
+    test("applies the header CSS class", () => {
+        render(<Header />);
+        const headerDiv = screen.getByText("HMCTS Caseworker").closest("div");
+        expect(headerDiv).toHaveClass("header");
+    });
+
 });
