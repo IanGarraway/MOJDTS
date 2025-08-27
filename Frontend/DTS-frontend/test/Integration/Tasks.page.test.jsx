@@ -33,7 +33,7 @@ describe('Tasks Page Tests', () => {
         expect(screen.getByRole('button', { name: /New Task/i })).toBeInTheDocument();        
     })
 
-    test('That clicking the new tasks button will open a blank task screen', async () => {
+    test('That clicking the new tasks button will open a blank task screen when no data passed in', async () => {
         //Arrange
         mockGetAll.mockResolvedValue([]);
 
@@ -65,6 +65,27 @@ describe('Tasks Page Tests', () => {
 
         //Assert
         expect(displayTasks).toHaveLength(3);
-    })
+    });
+    
+    test('That clicking the new tasks button will open a blank task screen even with data', async () => {
+        //Arrange
+        mockGetAll.mockResolvedValue(tasks);
+
+        //Act
+        render(<Tasks />);
+        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
+
+        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+        await userEvent.click(newTaskButton);
+
+        //Assert
+
+        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+
+        const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
+        expect(titleInput).toHaveValue('');
+        const descriptionInput = screen.getByLabelText(/description/i);
+        expect(descriptionInput).toHaveValue('');
+    });
 
 });
