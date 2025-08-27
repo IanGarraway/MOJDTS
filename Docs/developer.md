@@ -168,7 +168,7 @@ The backend tests are implemented using:
 - **Supertest** - for HTTP integration testing
 - **C8** - code coverage
 
-These were applied following a Test Driven Development (TDD) approach to ensure the API layer is robust and reliable. 
+These were applied following a Test Driven Development (TDD) approach to ensure the API layer is robust and reliable.
 
 #### Running the backend tests
 
