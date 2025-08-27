@@ -157,6 +157,8 @@ Frontend Entry point: frontend/DTS-frontend/main.jsx
 
 ## 2. Testing
 
+A more detailed explanation can be found in [testing.md](./testing.md).
+
 ### Backend Testing
 
 #### Technologies used for the backend testing
@@ -167,6 +169,7 @@ The backend tests are implemented using:
 - **Chai** - assertion library
 - **Supertest** - for HTTP integration testing
 - **C8** - code coverage
+- **MongoDB** - test database or mocked
 
 These were applied following a Test Driven Development (TDD) approach to ensure the API layer is robust and reliable.
 

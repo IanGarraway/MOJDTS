@@ -23,6 +23,7 @@ This project is using a combination of unit and integration tests to ensure func
 3. Mocking
     - API calls to `TasksService` are mocked to isolate component behaviour.
     - Functions like `setShow` and `setTask` are spied on to ensure correct invocations.
+4. Services and Utilities were created using Test Driven Development. Components and pages were created using Vite live server to manually test during development. Unit and Integration tests were then created afterwards to automate testing.
   
 ### Frontend Test File Organisation
 
@@ -76,7 +77,8 @@ all test files are in the `backend/test` folder
 
 ### Backend Testing strategy
 
-1. Integration Tests (with database)
+1. Created fully using a test driven development approach.
+2. Integration Tests (with database)
    - Connect to a test MongoDB instance.
    - Full-stack verification: routes → controller → service → model → database.
    - Examples:
@@ -84,14 +86,14 @@ all test files are in the `backend/test` folder
      - GET /tasks/:id retrieves the correct task.
      - PATCH /tasks/:id updates task data.
      - DELETE /tasks/:id removes tasks.
-2. Error Handling / Unit Tests (without database)
+3. Error Handling / Unit Tests (without database)
     - Use a fake Task model to simulate database failures.
     - Ensure controllers and services handle errors gracefully.
     - Examples:
       - All API calls return 500 when DB is unavailable.
       - Missing required fields result in 400 responses.
       - Invalid or non-existent task IDs return 400/404.
-3. Test Structure
+4. Test Structure
    - before / after hooks: setup server, service, and database connections.
    - afterEach: clear database collections to maintain isolation.
    - Tests grouped by HTTP method: POST, GET, PATCH, DELETE.
