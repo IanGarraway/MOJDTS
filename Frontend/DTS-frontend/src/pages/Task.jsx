@@ -1,23 +1,14 @@
 import React, {useState} from 'react';
 import { Alert, FloatingLabel, Form, Row, Col, Button, FormGroup } from 'react-bootstrap';
+
+import DateTools from '../utils/Date.Tools';
 import TasksService from '../services/Tasks.Services';
 import TaskTools from '../utils/Tasks.Tools';
-
-
-function tomorrowDate() {
-    //in the case of no existing date, generates a date for the next day at 12 
-    //as a default due date and time
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);  // move to tomorrow
-    tomorrow.setHours(12, 0, 0, 0);            // set time to 12:00:00.000
-
-    return tomorrow.toISOString().slice(0, 16);
-}
 
 const Task = ({task, setShow, getTasks}) => {
     const isNewTask = !task;
     
-    const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : tomorrowDate(); // "YYYY-MM-DDTHH:mm"
+    const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : DateTools.tomorrowDate(); // "YYYY-MM-DDTHH:mm"
     
     const [deleteEnabled, setDeleteEnabled] = useState(false);
     const [description, setDescription] = useState(task?.taskDescription || '');
