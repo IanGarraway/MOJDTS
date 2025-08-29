@@ -84,6 +84,7 @@ const Task = ({task, setShow, getTasks}) => {
         <div>
             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             <Form onSubmit={handleSubmit}>
+                {/* Task title input */}
                 <Row>
                     <Col>
                         <FloatingLabel
@@ -101,7 +102,8 @@ const Task = ({task, setShow, getTasks}) => {
                         </FloatingLabel>
                     </Col>                    
                 </Row>
-      
+
+                {/* Task description textarea */}      
                 <FloatingLabel controlId="taskDescription" label="Task Description">
                     <Form.Control
                         as="textarea"
@@ -112,6 +114,7 @@ const Task = ({task, setShow, getTasks}) => {
                     />
                 </FloatingLabel>
             
+                {/* Task due date and status */}
                 <Row>
                     <Col>
                         <Form.Group controlId="taskDueDate">
@@ -137,6 +140,8 @@ const Task = ({task, setShow, getTasks}) => {
                         </FormGroup>
                     </Col>
                 </Row>
+
+                {/* Save and delete buttons */}
                 <Row className="mt-4">
                     <Col>
                         <Button
