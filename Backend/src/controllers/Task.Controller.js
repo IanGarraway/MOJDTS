@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 import TaskService from "../services/Task.Service.js";
 import { validationResult } from "express-validator";
 
-
+/**
+ * TaskController
+ * Handles HTTP requests for tasks and delegates business logic to TaskService.
+ * Each method corresponds to a REST API endpoint: create, read, update, delete tasks.
+ */
 export default class TaskController{
     #taskService;
 
@@ -10,6 +14,11 @@ export default class TaskController{
         this.#taskService = taskService;
     }
 
+    /**
+     * Create a new task
+     * Validates request body and passes it to TaskService
+     * Returns 201 on success, 400 on validation failure, 500 on server error
+     */
     newTask = async (req, res) => {
         try {
             const errors = validationResult(req);
@@ -24,6 +33,10 @@ export default class TaskController{
         }
     }
 
+    /**
+     * Retrieve all tasks
+     * Returns 200 with an array of tasks, 500 on server error
+     */
     getAll = async (req, res) => {     
         try {
             const taskData = await this.#taskService.getAll();
@@ -34,8 +47,13 @@ export default class TaskController{
         }
     }
 
+    /**
+     * Retrieve a single task by ID
+     * Validates the ID format, returns 404 if task not found
+     */
     get = async (req, res) => { 
         try {
+            // Check if task ID is a valid Mongo ObjectId
             if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
                 return res.status(400).send({ message: "Invalid task ID format" });
             }
@@ -47,8 +65,14 @@ export default class TaskController{
         }
     }
 
+    /**
+     * Update task (patch)
+     * Validates ID, calls service to update task
+     * Returns 404 if task not found
+     */
     patch = async (req, res) => {
         try {
+            // Check if task ID is a valid Mongo ObjectId
             if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
                 return res.status(400).send({ message: "Invalid task ID format" });
             }
@@ -63,8 +87,14 @@ export default class TaskController{
         }
     }
 
+    /**
+     * Delete a task by ID
+     * Validates ID, calls service to delete task
+     * Returns 204 if deleted, 404 if task not found
+     */
     delete = async (req, res) => {
         try {
+            // Check if task ID is a valid Mongo ObjectId
             if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
                 return res.status(400).send({ message: "Invalid task ID format" });
             }
@@ -73,9 +103,8 @@ export default class TaskController{
 
             if (result.deletedCount === 0) { return res.status(404).send(); }
             return res.status(204).send();
-        }catch (e) {
+        } catch (e) {
             return res.status(500).send({ message: e.message || "Some error occurred while attempting to create new task" });
         }
-        
     }
 }
