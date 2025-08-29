@@ -1,11 +1,23 @@
 import { Card, Badge } from 'react-bootstrap';
 import TaskStatusTool from '../utils/TaskStatus.Tool';
 
-
+/**
+ * TaskLine Component
+ * 
+ * Represents a single task as a clickable card.
+ * Displays task title, description, status badge, and due date.
+ * Highlights past-due tasks in red.
+ * 
+ * Props:
+ * - task: Task object containing title, description, status and due date
+ * - setTask: Function to set the currently selected task
+ * - setShow: Function to show the task modal
+ */
 export const TaskLine = ({ task, setTask, setShow }) => {
     const statusText = TaskStatusTool.statusToText(task.taskStatus);
     const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
+    // Format due date for GB display
     const dueDate = new Date(task.taskDueDate).toLocaleDateString('en-GB', {
         year: 'numeric',
         month: 'short',
@@ -15,8 +27,10 @@ export const TaskLine = ({ task, setTask, setShow }) => {
         hour12: true,
     });
 
+    //default date colour
     let dateColour = "#555"
 
+    //highLight overdue tasks in red if task is not complete
     if (new Date(task.taskDueDate) < new Date()&&task.taskStatus !=3) {
         dateColour = "#a30d0dff";
     }
