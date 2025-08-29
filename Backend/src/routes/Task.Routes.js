@@ -2,6 +2,12 @@ import { Router } from "express";
 import { body } from "express-validator";
 import TaskController from "../controllers/Task.Controller.js";
 
+
+/**
+ * TaskRoutes
+ * Encapsulates the routing for task-related endpoints.
+ * Handles CORS, route validation, and delegates to the TaskController.
+ */
 export default class TaskRoutes{
 
     #origin;
@@ -9,6 +15,12 @@ export default class TaskRoutes{
     #router;
     #routeStartPoint;
 
+    /**
+     * Constructor
+     * @param {string} origin - Allowed origin for CORS
+     * @param {TaskController} controller - Instance of TaskController
+     * @param {string} routeStartPoint - Base path for the routes
+     */
     constructor(origin = 'http://localhost:5173', controller = new TaskController(), routeStartPoint = "/") {
         this.#origin = origin;
         this.#controller = controller;
@@ -17,6 +29,10 @@ export default class TaskRoutes{
         this.#initialiseRoutes();
     }
 
+    /**
+     * #initialiseRoutes
+     * Private method to set up routes and middleware
+     */
     #initialiseRoutes = () => {
         this.#router.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", this.#origin);
@@ -26,6 +42,7 @@ export default class TaskRoutes{
             next();
         });
 
+        // POST /tasks - creates a new task, confirming required fields are not empty
         this.#router.post('/tasks', [
             body(`taskTitle`).exists().notEmpty().escape(),
             body(`taskStatus`).exists().notEmpty().escape(),
