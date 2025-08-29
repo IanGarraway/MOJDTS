@@ -4,13 +4,14 @@ A simple responsive task management webapp built using the MERN (MongoDB, Expres
 
 ## Features
 
-- **Create** new tasks
+- **Create** new tasks  
   ![Create task image](./Docs/images/createTask.png)
 - **Retrieve** existing tasks
 - Edit and **update** existing tasks
-- **Delete** tasks, with a confirmation
+- **Delete** tasks, with a confirmation  
+![Delete task example](./Docs/images/deleteTask.png)
 - Task status with colour coded badges
-- Past-due highlighting
+- Past-due highlighting  
 ![Past due example](./Docs/images/OverdueTask.png)
 
 ## Optional Enhancements
