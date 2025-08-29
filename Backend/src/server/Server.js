@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 
+/**
+ * Server
+ * Encapsulates the Express server setup, middleware, CORS configuration, and routes.
+ */
 export default class Server{
     #app;
     #host;
@@ -8,6 +12,14 @@ export default class Server{
     #taskRouter;
     #server;
     #allowedOrigin;
+
+    /**
+     * Constructor
+     * @param {number} port - Port for the server to listen on
+     * @param {string} host - Host address for the server
+     * @param {TaskRoutes} taskRoutes - Instance of TaskRoutes to register endpoints
+     * @param {string} allowedOrigin - Frontend URL allowed by CORS
+     */
 
     constructor(port, host, taskRoutes, allowedOrigin) {
         this.#app = express();
@@ -22,6 +34,10 @@ export default class Server{
         return this.#app;
     }
 
+    /**
+     * start
+     * Sets up middleware, CORS, routes and starts listening on the specified host and port
+     */
     start = () => {
 
         const corsOptions = {
@@ -43,6 +59,10 @@ export default class Server{
         });
     };
 
+    /**
+     * close
+     * Stops the server
+     */
     close = () => {
         this.#server.close();         
     }
