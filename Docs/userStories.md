@@ -58,7 +58,7 @@
 
 - [x] Task detail view created
 - [x] API call to GET /{id}
-- [ ] Show meaningful error message if task not found
+- [x] Show meaningful error message if task not found
 
 ## User story 4 - Update Task Status and Details
 

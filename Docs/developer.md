@@ -155,7 +155,116 @@ frontend/
 Backend Entry point: backend/index.js  
 Frontend Entry point: frontend/DTS-frontend/main.jsx
 
-## 2. Testing
+## 2. Installation
+
+### Requirements
+
+- Ensure MongoDB is installed and running locally (default port 27017).
+- a web browser of your choice is available
+
+### Backend installation
+
+from the backend folder:
+
+using a terminal:
+
+- npm install
+
+This project uses three environments: production (.env), development (.env.dev), and test (.env.test). Each must be configured with the correct MongoDB URI and port, this is done through adding 3 files, .env, .env.dev and .env.test to the backend folder
+
+.env:
+
+```dotenv
+ALLOWED_ORIGIN=http://localhost:5173
+PORT=4001
+HOST=127.0.0.1
+DB_URI=mongodb://localhost:27017/dtsTask
+```
+
+.env.dev:
+
+```dotenv
+ALLOWED_ORIGIN=http://localhost:5173
+PORT=4000
+HOST=127.0.0.1
+DB_URI=mongodb://localhost:27017/dtsTask-dev
+```
+
+.env.test
+
+```dotenv
+ALLOWED_ORIGIN=http://localhost:5173
+PORT=3000
+HOST=127.0.0.1
+DB_URI=mongodb://localhost:27017/dtsTask-tes
+```
+
+### Frontend installation
+
+from the frontend/DTS-frontend folder
+
+using a terminal:
+
+- npm install
+
+This project uses three environments: production (.env), development (.env.dev), and test (.env.test). Each must be configured with the correct MongoDB URI and port. this is done by creating 3 files, .env, .env.development and .env.test in the DTS-frontend folder.
+
+these should contain
+
+.env.development:
+
+``` dotenv
+VITE_API_URL=http://localhost:4000
+```
+
+.env.test:
+
+``` dotenv
+VITE_API_URL=http://localhost:3000
+```
+
+## 3. Start up instructions
+
+for the developer environment version
+
+### Backend start up
+
+From a terminal in the `./backend/` folder:
+
+``` bash
+npm run start
+```
+
+### Frontend start up
+
+From a terminal in the `./frontend/DTS-frontend` folder:
+
+``` bash
+npm run dev
+```
+
+## 4. Technologies used overview
+
+### Backend Technologies
+
+- Express 5.1.0
+- Express-validator 7.2.1
+- mongoose 8.17.1
+- cors 2.8.5
+- dotenv 17.2.1
+- cross-env 10.0.0
+
+### Frontend Technologies
+
+- Vite 7.1.0
+- React 19.1.1
+- Bootstrap 5.3.7
+- React-bootstrap 2.10.10
+- React-dom 19.1.1
+- Axios 1.11.0
+- dotenv 17.2.1
+
+## 5. Testing
 
 A more detailed explanation can be found in [testing.md](./testing.md).
 
@@ -175,16 +284,50 @@ These were applied following a Test Driven Development (TDD) approach to ensure 
 
 #### Running the backend tests
 
-##### 1. Run all tests:-
+using a terminal in the `.backend/` folder
+
+##### 1. Run all backend tests:-
 
 ```bash
 npm test
 ```
 
-##### 2. Generate a coverage report:-
+##### 2. Generate a backend coverage report:-
 
 ```bash
 npm run coverage
 ```
 
-The coverage report will be output to the backend/coverage folder.
+The coverage report will be output to the `./backend/coverage` folder.
+
+### Frontend Testing
+
+#### Technologies used for the frontend testing
+
+The frontend tests are implemented using:
+
+- **Vitest** - test runner for React Components.
+- **React Testing Library** - for rendering components and testing user interactions.
+- **User Event** - simulates realistic user interactions.
+- **jsdom** - simulates a browser environment in Node.js.
+- **coverage-v8** - outputs the coverage report.
+
+These were applied following a Test Driven Development (TDD) approach to ensure the API layer is robust and reliable.
+
+#### Running the frontend tests
+
+In a terminal in the `./frontend/DTS-frontend/` folder
+
+##### 1. Run all frontend tests:-
+
+```bash
+npm test
+```
+
+##### 2. Generate a frontend coverage report:-
+
+```bash
+npm run coverage
+```
+
+The coverage report will be output to the `./frontend/DTS-frontend/coverage` folder.
