@@ -5,6 +5,17 @@ import DateTools from '../utils/Date.Tools';
 import TasksService from '../services/Tasks.Services';
 import TaskTools from '../utils/Tasks.Tools';
 
+/**
+ * Task Component
+ * Renders a form for creating or editing a task.
+ * Supports title, description, due date/time, status, and deletion.
+ * Uses TasksService for API interactions and TaskTools for payload handling.
+ *
+ * Props:
+ *  - task: optional, existing task object for editing
+ *  - setShow: function to close the modal or form
+ *  - getTasks: function to refresh task list after changes
+ */
 const Task = ({task, setShow, getTasks}) => {
     const isNewTask = !task;
     
@@ -19,7 +30,11 @@ const Task = ({task, setShow, getTasks}) => {
     
     const validTask = !!(title.trim() && dueDate.trim() && status);
     
-
+    /**
+     * Handle form submission
+     * Calls API to create a new task or update existing one
+     * Displays error messages if API fails
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         const taskService = new TasksService();
@@ -45,9 +60,14 @@ const Task = ({task, setShow, getTasks}) => {
         }
     };
     
+    /**
+     * Handle task deletion
+     * Calls API to delete task
+     * Only enabled when delete switch is toggled
+     */
     const handleDelete = async (e) => {
-        
         e.preventDefault();
+
         const taskService = new TasksService();
         const response = await taskService.deleteTask(task._id);
         
@@ -57,8 +77,9 @@ const Task = ({task, setShow, getTasks}) => {
             getTasks();
             setShow(false);
         }
-    }
-
+    };
+    
+    // Render form with Bootstrap components
     return (
         <div>
             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
