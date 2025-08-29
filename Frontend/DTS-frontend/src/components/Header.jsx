@@ -1,3 +1,8 @@
+/**
+ * Header Component
+ * 
+ * Displays the main application title and subheading
+ */
 export default function Header() {  
   return (
     <div className='header'>
