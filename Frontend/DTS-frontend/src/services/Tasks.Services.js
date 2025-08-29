@@ -1,13 +1,27 @@
 import TasksAPI from "./Tasks.API"
 
+/**
+ * TasksService
+ * Provides methods to interact with the Tasks API.
+ * Handles fetching, creating, updating, and deleting tasks.
+ */
 export default class TasksService{
 
     #API
 
+    /**
+     * Constructor
+     * @param {object} api - The API module to use for requests
+     */
     constructor(api = TasksAPI) {
         this.#API = api;
     }
 
+    /**
+     * getAll
+     * Fetches all tasks from the server.
+     * @returns {Promise<Object[]|Object>} Array of tasks or error object
+     */
     async getAll() {
         try {
             const response = await this.#API.getAll()
@@ -21,6 +35,12 @@ export default class TasksService{
         }        
     }
 
+    /**
+     * newTask
+     * Creates a new task on the server.
+     * @param {Object} payload - The task data
+     * @returns {Promise<Object>} Response from the server or error object
+     */
     async newTask(payload) {
         try {
             const response = await this.#API.newTask(payload);
@@ -36,6 +56,13 @@ export default class TasksService{
         }
     }
 
+    /**
+     * updateTask
+     * Updates an existing task by ID.
+     * @param {string} id - The task ID
+     * @param {Object} payload - Updated task data
+     * @returns {Promise<Object>} Response from the server or error object
+     */
     async updateTask(id, payload) {
         try {            
             const response = await this.#API.patch(id, payload);            
@@ -48,9 +75,14 @@ export default class TasksService{
         } catch (e) {
             return {error: 'Unable to connect to server. Please try again.'}
         }
-
     }
 
+    /**
+     * deleteTask
+     * Deletes a task by ID.
+     * @param {string} _id - The task ID
+     * @returns {Promise<Object>} Response from the server or error object
+     */
     async deleteTask(_id) {
         try{
             const response = await this.#API.delete(_id);            
@@ -63,8 +95,4 @@ export default class TasksService{
             return { error: 'Unable to connect to server. Please try again.' };
         }
     }
-        
-    
-
-
 }
