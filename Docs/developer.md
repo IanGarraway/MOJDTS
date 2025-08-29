@@ -159,8 +159,13 @@ Frontend Entry point: frontend/DTS-frontend/main.jsx
 
 ### Requirements
 
-- Ensure MongoDB is installed and running locally (default port 27017).
-- a web browser of your choice is available
+- Node.js 20+
+- npm 10+
+- MongoDB 7+
+
+Ensure MongoDB is installed and running locally (default port 27017).  
+
+You will also need a web browser of your choice to access the webapp.
 
 ### Backend installation
 
@@ -268,6 +273,8 @@ npm run dev
 
 A more detailed explanation can be found in [testing.md](./testing.md).
 
+Coverage reports are generated in HTML format and can be opened locally in a browser.
+
 ### Backend Testing
 
 #### Technologies used for the backend testing
@@ -331,3 +338,8 @@ npm run coverage
 ```
 
 The coverage report will be output to the `./frontend/DTS-frontend/coverage` folder.
+
+## 6. Deployment
+
+For production, set up `.env` with the production database and API URL.  
+Use `npm run build` in `frontend/DTS-frontend` to generate a static build for deployment.
