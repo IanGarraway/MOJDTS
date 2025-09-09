@@ -204,6 +204,35 @@ describe('Tasks Page Tests', () => {
             expect(result).toHaveLength(0);
             expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
         });
+
+        test('that reselecting options redisplays the tasks', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
+
+            const filterButton = await screen.findByRole('button', { name: /Filters/i });
+            await userEvent.click(filterButton);
+            const checkboxes = await screen.findAllByRole('checkbox');
+            //verifying all rendered correctly
+            await expect(screen.queryAllByTestId('task-card')).toHaveLength(3)
+
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+            //verifying all have been deselected
+            await expect(screen.queryAllByTestId('task-card')).toHaveLength(0)
+
+            //Act - reselecting all options
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+
+            //Assert
+            const result = screen.queryAllByTestId('task-card');
+            expect(result).toHaveLength(3);
+            
+            
+        })
     })
 
 });
