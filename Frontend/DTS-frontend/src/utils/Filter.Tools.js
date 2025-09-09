@@ -6,12 +6,12 @@
 export default class FilterTools {
     /**
      * filterByStatus
-     * Function takes a set of the active statuses and returns all statuses in that set
-     * @param {Array of task Objects} tasks 
-     * @param {Set} activeStatuses 
-     * @returns {Array of task Objects}
+     * Filters tasks by their status
+     * @param {Object[]} tasks - Array of task objects
+     * @param {Set<number>} activeStatuses - set of status codes to include in the results
+     * @returns {Object[]} - Filtered list of tasks whose status in in the activeStatuses set
      */
     static filterByStatus(tasks, activeStatuses) {
-        return tasks;        
+        return tasks.filter(task=> activeStatuses.has(task.taskStatus));
     }
 }
