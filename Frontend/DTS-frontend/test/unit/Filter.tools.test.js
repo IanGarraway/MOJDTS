@@ -17,7 +17,7 @@ describe('Tests of the Filter Tools', () => {
         expect(result).toEqual(mockTasks);
     });
 
-    test('That it will return only one item', () => {
+    test('That it will return tasks with status 1', () => {
         //Arrange
         const mockTasks = tasks;
         const mockFilter = new Set([1]);
@@ -29,7 +29,7 @@ describe('Tests of the Filter Tools', () => {
         expect(result).toHaveLength(1);
     })
 
-    test('That it will return only one item', () => {
+    test('That it returns only tasks with status 2 or 3', () => {
         //Arrange
         const mockTasks = tasks;
         const mockFilter = new Set([2,3]);
@@ -40,5 +40,17 @@ describe('Tests of the Filter Tools', () => {
         //Assert
         expect(result).toHaveLength(2);
     })
+    test('That it will return only tasks with status 3', () => {
+        //Arrange
+        const mockTasks = tasks;
+        const mockFilter = new Set([3]);
+
+        //Act
+        const result = FilterTools.filterByStatus(mockTasks, mockFilter);        
+
+        //Assert
+        expect(result[0]).toEqual(mockTasks[0]);
+    })
     
 });
+
