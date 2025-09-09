@@ -30,7 +30,7 @@ describe('Task Page Tests', () => {
 
     test('renders form field with default values for new task', () => {
         //Act
-        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={null} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         //Assert
         expect(screen.getByLabelText(/Task Title/i)).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('Task Page Tests', () => {
 
     test('allows submitting a new task', async () => {
         //Act
-        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={null} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         fireEvent.change(screen.getByLabelText(/Task Title/i), { target: { value: 'Test Task' } });
         fireEvent.change(screen.getByLabelText(/Due Date & Time/i), { target: { value: '2025-12-08T12:00' } });
@@ -64,7 +64,7 @@ describe('Task Page Tests', () => {
 
     test('default due date is set to tomorrow', () => {
         //Arrange
-        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={null} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const dueDateInput = screen.getByLabelText(/Due Date & Time/i);
         
@@ -88,7 +88,7 @@ describe('Task Page Tests', () => {
         const expectedTitle = mockTask.taskTitle;
 
         //Act
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const descriptionBox = screen.getByLabelText(/Task Description/i);
         const dueDateBox = screen.getByLabelText(/Due Date & Time/i);
@@ -120,7 +120,7 @@ describe('Task Page Tests', () => {
         const expectedTitle = mockTask.taskTitle;
 
         //Act
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const saveButton = screen.queryByRole('button', { name: /save/i })
 
@@ -145,7 +145,7 @@ describe('Task Page Tests', () => {
         
 
         //Act
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const descriptionBox = screen.getByLabelText(/Task Description/i);
         await userEvent.type(descriptionBox, 'The Task description has been changed');
@@ -169,7 +169,7 @@ describe('Task Page Tests', () => {
         mockNewTask.mockResolvedValue({ error: "Failed to create task" });
 
         //Act
-        render(<Task task={null} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={null} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         //Assert
         const titleInput = screen.getByLabelText(/Task Title/i);
@@ -191,7 +191,7 @@ describe('Task Page Tests', () => {
         
         //Act
 
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const titleInput = screen.getByLabelText(/Task Title/i);
         await userEvent.type(titleInput, "Some Task");
@@ -210,7 +210,7 @@ describe('Task Page Tests', () => {
         
         //Act
 
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const deleteButton = screen.queryByRole('button', { name: /delete/i });
         expect(deleteButton).toBeInTheDocument();
@@ -229,7 +229,7 @@ describe('Task Page Tests', () => {
         
         //Act
 
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const deleteButton = screen.queryByRole('button', { name: /delete/i });
         expect(deleteButton).toBeInTheDocument();
@@ -250,7 +250,7 @@ describe('Task Page Tests', () => {
         
         //Act
 
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const deleteButton = screen.queryByRole('button', { name: /delete/i });      
 
@@ -273,7 +273,7 @@ describe('Task Page Tests', () => {
         
         //Act
 
-        render(<Task task={mockTask} setShow={mockSetShow} getTasks={mockGetTasks} />);
+        render(<Task task={mockTask} setShowModal={mockSetShow} getTasks={mockGetTasks} />);
 
         const deleteButton = screen.queryByRole('button', { name: /delete/i });      
 

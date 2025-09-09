@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, expect, vi } from 'vitest';
+import { beforeEach, describe, expect, vi } from 'vitest';
 
 import {Tasks} from '../../src/pages/Tasks';
 import {tasks} from '../data/data.json';
@@ -143,5 +143,25 @@ describe('Tasks Page Tests', () => {
         //Assert
         expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();        
     });
+
+    describe('Filter tests', () => {
+        test('That filters options become visible only after clicking filter button', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
+
+            const filterButton = await screen.findByRole('button', { name: /Filters/i })
+            expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+
+            //Act
+            await userEvent.click(filterButton);
+
+            //Assert
+            const checkboxes = await screen.findAllByRole('checkbox');
+            expect(checkboxes).toHaveLength(3);
+        });
+
+        
+    })
 
 });

@@ -13,10 +13,10 @@ import TaskTools from '../utils/Tasks.Tools';
  *
  * Props:
  *  - task: optional, existing task object for editing
- *  - setShow: function to close the modal or form
+ *  - setShowModal: function to close the modal or form
  *  - getTasks: function to refresh task list after changes
  */
-const Task = ({task, setShow, getTasks}) => {
+const Task = ({task, setShowModal, getTasks}) => {
     const isNewTask = !task;
     
     const initialDueDate = task?.taskDueDate ? task.taskDueDate.slice(0,16) : DateTools.tomorrowDate(); // "YYYY-MM-DDTHH:mm"
@@ -55,7 +55,7 @@ const Task = ({task, setShow, getTasks}) => {
         } else {
             if (response) {
                 getTasks(isNewTask);
-                setShow(false);
+                setShowModal(false);
             }
         }
     };
@@ -75,7 +75,7 @@ const Task = ({task, setShow, getTasks}) => {
             setErrorMessage(response.error);
         } else {
             getTasks();
-            setShow(false);
+            setShowModal(false);
         }
     };
     
