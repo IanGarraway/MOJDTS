@@ -103,3 +103,15 @@
 - [x] API call to DELETE /{id}
 - [x] Remove deleted task from UI without page refresh
 - [x] Show user friendly error message if deletion fails
+
+## User Story 6 - Filter the displayed tasks
+
+"As a caseworker, I want to be able to filter the tasks, so I can only see the ones with the status i'm interested in."
+
+### Definition of Done
+
+#### Frontend
+
+- [x] create filter tool
+- [x] create filter sidebar
+- [x] intergrate filter tool into task display

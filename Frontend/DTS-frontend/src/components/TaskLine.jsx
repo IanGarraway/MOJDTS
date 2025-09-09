@@ -11,9 +11,9 @@ import TaskStatusTool from '../utils/TaskStatus.Tool';
  * Props:
  * - task: Task object containing title, description, status and due date
  * - setTask: Function to set the currently selected task
- * - setShow: Function to show the task modal
+ * - setShowModal: Function to show the task modal
  */
-export const TaskLine = ({ task, setTask, setShow }) => {
+export const TaskLine = ({ task, setTask, setShowModal }) => {
     const statusText = TaskStatusTool.statusToText(task.taskStatus);
     const statusBadgeStyle = TaskStatusTool.statusToBadgeStyle(task.taskStatus);
 
@@ -37,7 +37,7 @@ export const TaskLine = ({ task, setTask, setShow }) => {
 
     const onTaskClick = () => {
         setTask(task);
-        setShow(true);
+        setShowModal(true);
     }
 
     

@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, expect, vi } from 'vitest';
+import { beforeEach, describe, expect, vi } from 'vitest';
 
 import {Tasks} from '../../src/pages/Tasks';
 import {tasks} from '../data/data.json';
@@ -21,127 +21,218 @@ describe('Tasks Page Tests', () => {
         vi.clearAllMocks();
     });
 
-    test('That the tasks page render No tasks found when an empty array is passed in', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue([]);
+    describe('tasks display', () => {
+        test('That the tasks page render No tasks found when an empty array is passed in', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue([]);
 
-        //Act
-        render(<Tasks />);
+            //Act
+            render(<Tasks />);
 
-        //Assert
-        expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /New Task/i })).toBeInTheDocument();        
-    })
+            //Assert
+            expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: /New Task/i })).toBeInTheDocument();
+        })
 
-    test('That clicking the new tasks button will open a blank task screen when no data passed in', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue([]);
+        test('That clicking the new tasks button will open a blank task screen when no data passed in', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue([]);
 
-        //Act
-        render(<Tasks />);
-        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
+            //Act
+            render(<Tasks />);
+            expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
 
-        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
-        await userEvent.click(newTaskButton);
+            const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+            await userEvent.click(newTaskButton);
 
-        //Assert
+            //Assert
 
-        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
-        expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
+            expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+            expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
 
-        const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
-        expect(titleInput).toHaveValue('');
-        const descriptionInput = screen.getByLabelText(/description/i);
-        expect(descriptionInput).toHaveValue('');
+            const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
+            expect(titleInput).toHaveValue('');
+            const descriptionInput = screen.getByLabelText(/description/i);
+            expect(descriptionInput).toHaveValue('');
+        });
+
+        test('that the page renders with 3 tasks when an array of 3 tasks is passed in', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+
+            //Act
+            render(<Tasks />);
+
+            const displayTasks = await screen.findAllByTestId('task-card');
+
+            //Assert
+            expect(displayTasks).toHaveLength(3);
+        });
     });
 
-    test('that the page renders with 3 tasks when an array of 3 tasks is passed in', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue(tasks);
-
-        //Act
-        render(<Tasks />);
-
-        const displayTasks = await screen.findAllByTestId('task-card');
-
-        //Assert
-        expect(displayTasks).toHaveLength(3);
-    });
+    describe('task display tests', () => {
     
-    test('That clicking the new tasks button will open a blank task screen even with data', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue(tasks);
+        test('That clicking the new tasks button will open a blank task screen even with data', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
 
-        //Act
-        render(<Tasks />);
-        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
+            //Act
+            render(<Tasks />);
+            expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
 
-        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
-        await userEvent.click(newTaskButton);
+            const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+            await userEvent.click(newTaskButton);
 
-        //Assert
+            //Assert
 
-        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
-        expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
+            expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+            expect(screen.queryByRole('button', { name: /Delete/i })).not.toBeInTheDocument();
 
-        const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
-        expect(titleInput).toHaveValue('');
-        const descriptionInput = screen.getByLabelText(/description/i);
-        expect(descriptionInput).toHaveValue('');
-    });
+            const titleInput = screen.getByLabelText(/title/i); //also confirming that the title and description are blank
+            expect(titleInput).toHaveValue('');
+            const descriptionInput = screen.getByLabelText(/description/i);
+            expect(descriptionInput).toHaveValue('');
+        });
 
-    test('That clicking a task will open the task screen for that task', async () => {
-        //Arrange
-        const mockData = tasks;
-        mockGetAll.mockResolvedValue(mockData);
+        test('That clicking a task will open the task screen for that task', async () => {
+            //Arrange
+            const mockData = tasks;
+            mockGetAll.mockResolvedValue(mockData);
         
-        render(<Tasks />);
-        const clickedTask = await screen.findByText(mockData[1].taskTitle);
+            render(<Tasks />);
+            const clickedTask = await screen.findByText(mockData[1].taskTitle);
 
-        //Act        
-        await userEvent.click(clickedTask);
+            //Act        
+            await userEvent.click(clickedTask);
 
-        //Assert
-        const titleInput = screen.getByLabelText(/title/i);
-        expect(titleInput).toHaveValue(mockData[1].taskTitle);
+            //Assert
+            const titleInput = screen.getByLabelText(/title/i);
+            expect(titleInput).toHaveValue(mockData[1].taskTitle);
 
-        const descriptionInput = screen.getByLabelText(/description/i);
-        expect(descriptionInput).toHaveValue(mockData[1].taskDescription);
+            const descriptionInput = screen.getByLabelText(/description/i);
+            expect(descriptionInput).toHaveValue(mockData[1].taskDescription);
 
-        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
-        expect(screen.queryByRole('button', { name: /Delete/i })).toBeInTheDocument();
-    });
+            expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+            expect(screen.queryByRole('button', { name: /Delete/i })).toBeInTheDocument();
+        });
 
-    test('That a task service returning an error will display an error message', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue({ error: `Unable to fetch tasks. Please try again later.` });
+        test('That a task service returning an error will display an error message', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue({ error: `Unable to fetch tasks. Please try again later.` });
         
-        //Act
-        render(<Tasks />);
+            //Act
+            render(<Tasks />);
 
-        //Assert
-        expect(await screen.findByText(/Unable to fetch tasks. Please try again later./i)).toBeInTheDocument();
+            //Assert
+            expect(await screen.findByText(/Unable to fetch tasks. Please try again later./i)).toBeInTheDocument();
+        });
+
+        test('that closing the Task modal will function correctly', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue([]);
+
+            render(<Tasks />);
+
+            const newTaskButton = screen.getByRole('button', { name: /New Task/i });
+            await userEvent.click(newTaskButton);
+
+            //just to confirm the save button is there before closing
+            expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument();
+
+            const closeButton = screen.getByLabelText(/close/i);
+
+            //Act
+            await userEvent.click(closeButton);
+
+            //Assert
+            expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();
+        });
     });
 
-    test('that closing the Task modal will function correctly', async () => {
-        //Arrange
-        mockGetAll.mockResolvedValue([]);
+    describe('Filter tests', () => {
+        test('That filters options become visible only after clicking filter button', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
 
-        render(<Tasks />);
+            const filterButton = await screen.findByRole('button', { name: /Filters/i })
+            expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
 
-        const newTaskButton = screen.getByRole('button', { name: /New Task/i });
-        await userEvent.click(newTaskButton);
+            //Act
+            await userEvent.click(filterButton);
 
-        //just to confirm the save button is there before closing
-        expect(await screen.findByRole('button', { name: /Save/i })).toBeInTheDocument(); 
+            //Assert
+            const checkboxes = await screen.findAllByRole('checkbox');
+            expect(checkboxes).toHaveLength(3);
+        });
 
-        const closeButton = screen.getByLabelText(/close/i);
+        test('That deselecting option 1 reduces the amount of visible tasks', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
 
-        //Act
-        await userEvent.click(closeButton);        
+            const filterButton = await screen.findByRole('button', { name: /Filters/i });
+            await userEvent.click(filterButton);
+            const filterOption = await screen.findByRole('checkbox', { name: /Pending/i });
+            const displayTasks = await screen.findAllByTestId('task-card');
+            expect(displayTasks).toHaveLength(3);
 
-        //Assert
-        expect(screen.queryByRole('button', { name: /Save/i })).not.toBeInTheDocument();        
-    });
+            //Act
+            await userEvent.click(filterOption);
+
+            //Assert
+            const result = await screen.findAllByTestId('task-card');
+            expect(result).toHaveLength(2);
+        });
+
+        test('That deselecting all option reduces the amount of visible tasks to 0', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
+
+            const filterButton = await screen.findByRole('button', { name: /Filters/i });
+            await userEvent.click(filterButton);
+            const checkboxes = await screen.findAllByRole('checkbox');
+
+            //Act
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+
+            //Assert
+            const result = screen.queryAllByTestId('task-card');
+            expect(result).toHaveLength(0);
+            expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
+        });
+
+        test('that reselecting options redisplays the tasks', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
+
+            const filterButton = await screen.findByRole('button', { name: /Filters/i });
+            await userEvent.click(filterButton);
+            const checkboxes = await screen.findAllByRole('checkbox');
+            //verifying all rendered correctly
+            await expect(screen.queryAllByTestId('task-card')).toHaveLength(3)
+
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+            //verifying all have been deselected
+            await expect(screen.queryAllByTestId('task-card')).toHaveLength(0)
+
+            //Act - reselecting all options
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+
+            //Assert
+            const result = screen.queryAllByTestId('task-card');
+            expect(result).toHaveLength(3);
+            
+            
+        })
+    })
 
 });
