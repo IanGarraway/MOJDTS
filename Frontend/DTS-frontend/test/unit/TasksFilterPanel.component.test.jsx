@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
+
 import TasksFilterPanel from '../../src/components/TasksFilterPanel';
 
 describe('TasksFilterPanel', () => {
@@ -24,7 +25,7 @@ describe('TasksFilterPanel', () => {
         expect(screen.getByLabelText('In Progress')).not.toBeChecked();
         expect(screen.getByLabelText('Completed')).toBeChecked();
     });
-    
+
     it('calls setActiveStatuses with correct value when toggled', () => {
         const activeStatuses = new Set([1]);
         const mockSetActive = vi.fn();

@@ -10,10 +10,10 @@ import { TaskLine } from "./TaskLine";
  * Props:
  * - tasks: Array of task objects to display
  * - setTask: Function to set the selected task for editing
- * - setShow: Function to toggle the task modal visibility
+ * - setShowModal: Function to toggle the task modal visibility
  * - newTaskCreated: Boolean flag to indicate a newly added task
  */
-const TaskTable = ({ tasks, setTask, setShow, newTaskCreated }) => {
+const TaskTable = ({ tasks, setTask, setShowModal, newTaskCreated }) => {
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const TaskTable = ({ tasks, setTask, setShow, newTaskCreated }) => {
                         key={task._id}
                         task={task}
                         setTask={setTask}
-                        setShow={setShow}
+                        setShowModal={setShowModal}
                     />
                 ))
             }

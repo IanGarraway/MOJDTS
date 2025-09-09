@@ -23,7 +23,7 @@ describe('Tests of the TaskTable component', () => {
         const mockData = {};
 
         //Act
-        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
+        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShowModal={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
 
         //Assert
         expect(screen.getByText(/No tasks found/i)).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('Tests of the TaskTable component', () => {
         const mockData = tasks;
 
         //Act
-        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
+        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShowModal={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
 
         const displayTasks = await screen.findAllByTestId('task-card');
 
@@ -46,7 +46,7 @@ describe('Tests of the TaskTable component', () => {
         const mockData = tasks;
 
         //Act
-        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShow={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
+        render(<TaskTable tasks={mockData} setTask={mockSetTask} setShowModal={mockSetShow} newTaskCreated={mockNewTaskCreated} />);
 
         const clickedTask = await screen.findByText(mockData[1].taskTitle);
 

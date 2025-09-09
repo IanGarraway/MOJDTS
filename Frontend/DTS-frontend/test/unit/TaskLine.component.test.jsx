@@ -34,7 +34,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
 
 
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const badge = screen.getByText(expectedStatusText);
 
@@ -55,7 +55,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
 
 
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const badge = screen.getByText(expectedStatusText);
 
@@ -73,7 +73,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
 
 
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const badge = screen.getByText(expectedStatusText);
 
@@ -100,7 +100,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         });
         
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
@@ -126,7 +126,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         });
         
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
@@ -152,7 +152,7 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         });
         
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const dueDateElement = screen.getByText(`Due: ${expectedDate}`);
 
@@ -160,12 +160,12 @@ describe('Tests of the TaskLine component of the Tasks.jsx page', () => {
         expect(dueDateElement).toHaveStyle({ color: "#555" });
     });
 
-    test('Test that clicking on a task will trigger setTask and setShow functions', async () => {
+    test('Test that clicking on a task will trigger setTask and setShowModal functions', async () => {
         //Arrange
         const mockTask = tasks[0];
 
         //Act
-        render(<TaskLine task={mockTask} setTask={mockSetTask} setShow={mockSetShow} />);
+        render(<TaskLine task={mockTask} setTask={mockSetTask} setShowModal={mockSetShow} />);
 
         const taskCard = screen.getByText(mockTask.taskTitle);
 

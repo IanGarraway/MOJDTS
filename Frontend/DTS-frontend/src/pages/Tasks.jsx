@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Modal } from 'react-bootstrap';
+import { Alert, Button, Modal, Offcanvas } from 'react-bootstrap';
 
 import TaskTable from '../components/TaskTable';
 import Task from './Task';
@@ -13,7 +13,7 @@ import TasksService from '../services/Tasks.Services';
  */
 export const Tasks = () => {
     const [errorMessage, setErrorMessage] = useState("");
-    const [show, setShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState([]);
     const [newTaskCreated, setNewTaskCreated] = useState(false);
@@ -38,12 +38,12 @@ export const Tasks = () => {
         getTasks()
     }, [])
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => setShowModal(false);
     
     // Open modal for new task
     const newTaskClick = () => {
         setTask(null);
-        setShow(true);
+        setShowModal(true);
     }
 
     return (
@@ -55,13 +55,13 @@ export const Tasks = () => {
             </div>
             
             {/* Task Table */}
-            <TaskTable tasks={tasks} setTask={setTask} setShow={setShow} newTaskCreated={newTaskCreated} />
+            <TaskTable tasks={tasks} setTask={setTask} setShowModal={setShowModal} newTaskCreated={newTaskCreated} />
 
             {/* Task Modal for creating/editing tasks */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton />
                 <Modal.Body>
-                    <Task task={task} setShow={setShow} getTasks={getTasks} />
+                    <Task task={task} setShowModal={setShowModal} getTasks={getTasks} />
                 </Modal.Body>
             </Modal>
         </div>
