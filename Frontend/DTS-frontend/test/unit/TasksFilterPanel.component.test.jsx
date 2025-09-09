@@ -15,4 +15,13 @@ describe('TasksFilterPanel', () => {
         expect(screen.getByLabelText('In Progress')).toBeInTheDocument();
         expect(screen.getByLabelText('Completed')).toBeInTheDocument();
     });
+
+    it('checks checkboxes based on activeStatuses', () => {
+    const activeStatuses = new Set([1, 3]);
+    render(<TasksFilterPanel activeStatuses={activeStatuses} setActiveStatuses={() => {}} />);
+
+    expect(screen.getByLabelText('Pending')).toBeChecked();
+    expect(screen.getByLabelText('In Progress')).not.toBeChecked();
+    expect(screen.getByLabelText('Completed')).toBeChecked();
+  });
 });
