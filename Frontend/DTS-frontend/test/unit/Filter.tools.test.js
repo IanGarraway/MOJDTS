@@ -28,5 +28,17 @@ describe('Tests of the Filter Tools', () => {
         //Assert
         expect(result).toHaveLength(1);
     })
+
+    test('That it will return only one item', () => {
+        //Arrange
+        const mockTasks = tasks;
+        const mockFilter = new Set([2,3]);
+
+        //Act
+        const result = FilterTools.filterByStatus(mockTasks, mockFilter);        
+
+        //Assert
+        expect(result).toHaveLength(2);
+    })
     
 });
