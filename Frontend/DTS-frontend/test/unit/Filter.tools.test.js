@@ -53,4 +53,28 @@ describe('Tests of the Filter Tools', () => {
     })
     
 });
+describe('FilterTools.filterByStatus - dynamic tests', () => {
 
+    const statusSets = [
+        { filter: new Set([1]), expectedStatuses: [1] },
+        { filter: new Set([2]), expectedStatuses: [2] },
+        { filter: new Set([3]), expectedStatuses: [3] },
+        { filter: new Set([1,2]), expectedStatuses: [1,2] },
+        { filter: new Set([2,3]), expectedStatuses: [2,3] },
+        { filter: new Set([1,2,3]), expectedStatuses: [1,2,3] },
+    ];
+
+    statusSets.forEach(({ filter, expectedStatuses }) => {
+        test(`returns tasks with statuses ${Array.from(filter).join(', ')}`, () => {
+            const result = FilterTools.filterByStatus(tasks, filter);
+
+            // Check all returned tasks have a valid status
+            expect(result.every(task => expectedStatuses.includes(task.taskStatus))).toBe(true);
+
+            // Optionally check the count matches expected count based on tasks data
+            const expectedCount = tasks.filter(task => expectedStatuses.includes(task.taskStatus)).length;
+            expect(result).toHaveLength(expectedCount);
+        });
+    });
+
+});
