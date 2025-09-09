@@ -184,6 +184,26 @@ describe('Tasks Page Tests', () => {
             const result = await screen.findAllByTestId('task-card');
             expect(result).toHaveLength(2);
         });
+
+        test('That deselecting all option reduces the amount of visible tasks to 0', async () => {
+            //Arrange
+            mockGetAll.mockResolvedValue(tasks);
+            render(<Tasks />);
+
+            const filterButton = await screen.findByRole('button', { name: /Filters/i });
+            await userEvent.click(filterButton);
+            const checkboxes = await screen.findAllByRole('checkbox');
+
+            //Act
+            for (const checkbox of checkboxes) {
+                await userEvent.click(checkbox);
+            };
+
+            //Assert
+            const result = screen.queryAllByTestId('task-card');
+            expect(result).toHaveLength(0);
+            expect(await screen.findByText(/No tasks found/i)).toBeInTheDocument();
+        });
     })
 
 });
