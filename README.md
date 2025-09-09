@@ -13,12 +13,12 @@ A simple responsive task management webapp built using the MERN (MongoDB, Expres
 - Task status with colour coded badges
 - Past-due highlighting  
 ![Past due example](./Docs/images/OverdueTask.png)
+- **Filtering**: Allow caseworkers to filter tasks by status (e.g. "pending", "completed")
 
-## Optional Enhancements
+## Future Enhancements
 
 To improve usability beyond the core requirements, the following enhancements can be considered:
 
-- **Filtering**: Allow caseworkers to filter tasks by status (e.g. "pending", "completed")  
 - **Sorting**: Enable sorting by due date or task title to prioritise workload  
 - **Search**: Add a search bar to quickly locate specific tasks
 

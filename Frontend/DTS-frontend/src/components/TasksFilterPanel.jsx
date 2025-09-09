@@ -32,6 +32,7 @@ function TasksFilterPanel({ activeStatuses, setActiveStatuses }) {
     
     return (
         <div>
+            <h2>Filters</h2>
             {statusOptions.map(({ label, value }) => (
                 <Form.Check
                     key={value}
